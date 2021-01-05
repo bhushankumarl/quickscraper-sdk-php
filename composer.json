@@ -1,0 +1,19 @@
+{
+    "name": "quickscraper/sdk",
+    "type": "library",
+    "description": "https://quickscraper.co",
+    "keywords": [
+        "quickscraper",
+        "scraping"
+    ],
+    "homepage": "https://quickscraper.co/",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Bhushankumar L",
+            "email": "bhushankumar.lilapara@gmail.com",
+            "homepage": "http://seld.be",
+            "role": "Developer"
+        }
+    ]
+}
