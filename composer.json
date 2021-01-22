@@ -2,7 +2,6 @@
     "name": "quickscraper/sdk",
     "type": "library",
     "description": "https://quickscraper.co",
-    "minimum-stability": "dev",
     "keywords": [
         "quickscraper",
         "scraping"
@@ -19,6 +18,11 @@
     ],
     "require": {
         "php": "^7.0"
+    },
+    "extra": {
+      "branch-alias": {
+          "dev-master": "1.0.x-dev"
+      }
     },
     "require-dev": {
         "phpunit/phpunit": "^6.0",
