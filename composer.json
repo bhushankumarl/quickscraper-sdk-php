@@ -2,6 +2,7 @@
     "name": "quickscraper/sdk",
     "type": "library",
     "description": "https://quickscraper.co",
+    "minimum-stability": "dev-develop",
     "keywords": [
         "quickscraper",
         "scraping"
