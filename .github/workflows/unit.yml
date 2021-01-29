@@ -12,7 +12,9 @@ env:
 jobs:
   tests:
     name: PHPUnit tests
-    uses: php-actions/phpunit@v2
-    with:
-      configuration: ./phpunit.xml
-      memory_limit: 256M
+    runs-on: ubuntu-latest
+    steps:
+      - uses: php-actions/phpunit@v2
+        with:
+          configuration: ./phpunit.xml
+          memory_limit: 256M
