@@ -18,7 +18,8 @@
         }
     ],
     "require": {
-        "php": "^7.0"
+        "php": "^7.0",
+        "guzzlehttp/guzzle": "7.0"
     },
     "extra": {
       "extra": {
@@ -33,7 +34,8 @@
     },
     "autoload": {
         "psr-4": {
-            "QuickScraper\\Main\\": "src/"
+            "QuickScraper\\Main\\": "src/",
+            "QuickScraper\\Constants\\": "src/constants"
         }
     },
     "scripts": {
