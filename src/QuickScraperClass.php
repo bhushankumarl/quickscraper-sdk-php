@@ -11,7 +11,6 @@ class QuickScraperClass
 {
     private $accessToken = '';
     private $parseUrl;
-    private $baseUrl;
     private $DEFAULT = array(
       "CLIENT" =>'NODEJS_CLIENT_LIB',
       "HOST" => ''
