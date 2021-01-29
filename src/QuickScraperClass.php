@@ -29,7 +29,7 @@ class QuickScraperClass
     
     public function sayHello($name): string
     {
-        return sprintf("Hello!".$this->baseUrl.ucfirst($name));
+        return sprintf("Hello!".ucfirst($name));
     }
     
     public function setHost(string $host): string
