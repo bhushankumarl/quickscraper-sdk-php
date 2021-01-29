@@ -10,9 +10,9 @@ env:
   DEBUG: "QS:*"
 
 jobs:
-  unit-tests:
-    - name: PHPUnit tests
-      uses: php-actions/phpunit@v2
-      with:
-        configuration: ./phpunit.xml
-        memory_limit: 256M
+  tests:
+    name: PHPUnit tests
+    uses: php-actions/phpunit@v2
+    with:
+      configuration: ./phpunit.xml
+      memory_limit: 256M
