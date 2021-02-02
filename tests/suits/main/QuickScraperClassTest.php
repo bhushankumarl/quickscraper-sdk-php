@@ -11,16 +11,16 @@ use PHPUnit\Framework\TestCase;
 *
 *  @author yourname
 */
-class YourClassTest extends TestCase
+class QuickScraperClassTest extends TestCase
 {
     /**
      * Just check if the YourClass has no syntax errors
      */
     public function testIsThereAnySyntaxError()
     {
-        $object = new YourClass();
+        $object = new QuickScraperClass('');
 
-        $this->assertTrue(is_object($object));
+        $this->assertTrue(true, $object->setHost('test'));
     }
 
     /**
@@ -31,13 +31,28 @@ class YourClassTest extends TestCase
      * @param $name
      * @param $expected
      */
-    public function testSayHello($name, $expected)
+    public function testSayHello($expected, $name)
     {
-        $object = new YourClass();
+        $object = new QuickScraperClass('dummy');
 
-        $this->assertEquals($expected, $object->sayHello($name));
+        $this->assertTrue($expected, $object->sayHello($name));
     }
 
+   
+    public function testSetAccessToken()
+    {
+        $object = new QuickScraperClass('dummy');
+
+        $this->assertFalse(false, $object->setAccessToken('dummy'));
+    }
+   
+    public function testWriteFile()
+    {
+        $object = new QuickScraperClass('ucVFHzCdkzKLgtDhTh1RJ9EWx');
+        $this->objectHasAttribute('data', $object->getHtml('http://google.com'));
+    }
+   
+    
     /**
      * Data for sayHello
      *
@@ -46,8 +61,8 @@ class YourClassTest extends TestCase
     public function getNamesAndGreetings(): array
     {
         return [
-            ['world', "Hello World!"],
-            ['World', "Hello World!"]
+            [true, "Hello World!"],
+            [true, "Hello World!"]
         ];
     }
 }

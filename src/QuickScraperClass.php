@@ -47,10 +47,10 @@ class QuickScraperClass
       $requestUrl = $this->prepareRequestUrl($url);
       $headers = $this->prepareHeaders();
       $options = array(
-        'headers'=> $headers
+        'headers'=> $headers,
+        'verify' => false
       );
       try {
-        // $responses = Promise\Utils::settle($promises)->wait();
         $httpClient = new Client();
         $response = $httpClient->getAsync($requestUrl, $options)->wait();
 
