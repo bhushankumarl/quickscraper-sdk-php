@@ -16,6 +16,6 @@ jobs:
     steps:
       - uses: php-actions/phpunit@v8
         with:
+          run: phpunit -v
           configuration: ./phpunit.xml
           memory_limit: 256M
-      - run: phpunit -v
