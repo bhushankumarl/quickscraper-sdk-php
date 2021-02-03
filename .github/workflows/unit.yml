@@ -16,5 +16,6 @@ jobs:
     steps:
       - uses: php-actions/phpunit@v8
         with:
-          configuration: $GITHUB_PATH/phpunit.xml
+          configuration: ./phpunit.xml
           memory_limit: 256M
+      - run: phpunit -v
