@@ -16,5 +16,5 @@ jobs:
     steps:
       - uses: php-actions/phpunit@v8
         with:
-          configuration: phpunit.xml
+          command: phpunit --configuration 'phpunit.xml' --test-suffix 'Test.php,.phpt' -d memory_limit=256M
           memory_limit: 256M
