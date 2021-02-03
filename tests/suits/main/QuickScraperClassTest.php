@@ -18,7 +18,7 @@ class QuickScraperClassTest extends TestCase
      */
     public function testIsThereAnySyntaxError()
     {
-        $object = new QuickScraperClass('');
+        $object = new QuickScraperClass('Dummy');
 
         $this->assertTrue(true, $object->setHost('test'));
     }
@@ -46,11 +46,6 @@ class QuickScraperClassTest extends TestCase
         $this->assertFalse(false, $object->setAccessToken('dummy'));
     }
    
-    public function testWriteFile()
-    {
-        $object = new QuickScraperClass('ucVFHzCdkzKLgtDhTh1RJ9EWx');
-        $this->objectHasAttribute('data', $object->getHtml('http://google.com'));
-    }
    
     
     /**
