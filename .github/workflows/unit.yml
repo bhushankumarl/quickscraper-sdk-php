@@ -14,7 +14,8 @@ jobs:
     name: PHPUnit tests
     runs-on: ubuntu-latest
     steps:
-      - run: ls -a
+      - run: echo $GITHUB_PATH
+      - run: echo $HOME
       - uses: php-actions/phpunit@v8
         with:
           configuration: phpunit.xml
