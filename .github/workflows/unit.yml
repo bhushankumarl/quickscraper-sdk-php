@@ -14,6 +14,7 @@ jobs:
     name: PHPUnit tests
     runs-on: ubuntu-latest
     steps:
+      - run: ls -a
       - uses: php-actions/phpunit@v8
         with:
           configuration: ../phpunit.xml
