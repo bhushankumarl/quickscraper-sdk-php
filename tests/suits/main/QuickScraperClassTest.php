@@ -27,7 +27,6 @@ class QuickScraperClassTest extends TestCase
      */
     public function testAccessToken()
     {
-        var_dump(getenv('QS_ACCESS_TOKEN'));
         $this->assertTrue(true, getenv('QS_ACCESS_TOKEN'));
     }
 
