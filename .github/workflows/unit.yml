@@ -26,7 +26,7 @@ jobs:
       # Many tools rely on this tool staying as `1.x`, therefore we check out the current workdir as
       # a compatible branch name
       - name: "Switch branch to develop"
-        run:  git checkout -b develop
+        run:  git checkout develop
 
       - name: "Install PHP"
         uses: "shivammathur/setup-php@v2"
