@@ -12,6 +12,10 @@ jobs:
 
     runs-on: ${{ matrix.operating-system }}
 
+    env:
+      QS_ACCESS_TOKEN: ${{ secrets.QS_ACCESS_TOKEN }}
+      DEBUG: "QS:*"
+
     strategy:
       matrix:
         php-version:

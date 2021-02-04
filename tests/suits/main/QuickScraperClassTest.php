@@ -22,6 +22,14 @@ class QuickScraperClassTest extends TestCase
 
         $this->assertTrue(true, $object->setHost('test'));
     }
+    /**
+     * Just check if the YourClass has no syntax errors
+     */
+    public function testAccessToken()
+    {
+        var_dump(getenv('QS_ACCESS_TOKEN'));
+        $this->assertTrue(true, getenv('QS_ACCESS_TOKEN'));
+    }
 
     /**
      * Test the only existing method of the class
