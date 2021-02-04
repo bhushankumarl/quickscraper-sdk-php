@@ -1,22 +1,65 @@
-name: PHP quickscraper-sdk CI
-on:
-  push:
-  pull_request:
-  schedule:
-    - cron: "* */5 * * *"
+name: "PHPUnit tests"
 
-env:
-  QS_ACCESS_TOKEN: ${{ secrets.QS_ACCESS_TOKEN }}
-  DEBUG: "QS:*"
+on:
+  pull_request:
+  push:
+    branches:
+      - "develop"
 
 jobs:
-  tests:
-    name: PHPUnit tests
-    runs-on: ubuntu-latest
-    steps:
-      - uses: php-actions/phpunit@v8
-        with:
-          memory_limit: 256M
+  phpunit:
+    name: "PHPUnit tests"
 
-      - name: Execute tests
-        run: vendor/bin/phpunit/phpunit --configuration 'phpunit.xml' --test-suffix 'Test.php,.phpt' -d memory_limit=256M
+    runs-on: ${{ matrix.operating-system }}
+
+    strategy:
+      matrix:
+        php-version:
+          - "7.2.25"
+        operating-system:
+          - "ubuntu-latest"
+
+    steps:
+      - name: "Checkout"
+        uses: "actions/checkout@v2"
+
+      # Many tools rely on this tool staying as `1.x`, therefore we check out the current workdir as
+      # a compatible branch name
+      - name: "Switch branch to develop"
+        run: git checkout origin develop
+
+      - name: "Install PHP"
+        uses: "shivammathur/setup-php@v2"
+        with:
+          coverage: "pcov"
+          php-version: "${{ matrix.php-version }}"
+          ini-values: memory_limit=-1
+          tools: composer:v2
+
+      - name: "Cache dependencies"
+        uses: "actions/cache@v2"
+        with:
+          path: |
+            ~/.composer/cache
+            vendor
+          key: "php-${{ matrix.php-version }}-${{ matrix.dependencies }}"
+          restore-keys: "php-${{ matrix.php-version }}-${{ matrix.dependencies }}"
+
+      - name: "Install highest dependencies"
+        if: ${{ matrix.dependencies == 'highest' }}
+        run: "composer update --no-interaction --no-progress --no-suggest --ignore-platform-req=php"
+
+      - name: "Install locked dependencies"
+        if: ${{ matrix.dependencies == 'locked' }}
+        run: "composer install --no-interaction --no-progress --no-suggest --ignore-platform-req=php"
+
+      - name: "Install with classmap authoritative flag"
+        if: ${{ matrix.dependencies == 'classmap-authoritative' }}
+        run: "composer install --no-interaction --classmap-authoritative --ignore-platform-req=php"
+
+      - name: "Install without scripts"
+        if: ${{ matrix.dependencies == 'no-scripts' }}
+        run: "composer install --no-scripts --ignore-platform-req=php"
+
+      - name: "Tests"
+        run: "vendor/bin/phpunit"
