@@ -23,11 +23,7 @@ jobs:
       - name: "Checkout"
         uses: "actions/checkout@v2"
 
-      # Many tools rely on this tool staying as `1.x`, therefore we check out the current workdir as
-      # a compatible branch name
-      - name: "Switch branch to develop"
-        run:  git checkout develop
-
+     
       - name: "Install PHP"
         uses: "shivammathur/setup-php@v2"
         with:
@@ -53,5 +49,5 @@ jobs:
       - name: "Tests phpunit version"
         run: "./vendor/bin/phpunit -v"
       
-      - name: "Tests"
+      - name: "Run the Test cases from tests folder"
         run: "./vendor/bin/phpunit"
