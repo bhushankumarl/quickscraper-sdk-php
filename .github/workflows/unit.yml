@@ -52,18 +52,6 @@ jobs:
           key: "php-${{ matrix.php-version }}-${{ matrix.dependencies }}"
           restore-keys: "php-${{ matrix.php-version }}-${{ matrix.dependencies }}"
 
-      - name: "Install highest dependencies"
-        if: ${{ matrix.dependencies == 'highest' }}
-        run: "composer update --no-interaction --no-progress --ignore-platform-req=php"
-
-      - name: "Install locked dependencies"
-        if: ${{ matrix.dependencies == 'locked' }}
-        run: "composer install --no-interaction --no-progress --ignore-platform-req=php"
-
-      - name: "Install with classmap authoritative flag"
-        if: ${{ matrix.dependencies == 'classmap-authoritative' }}
-        run: "composer install --no-interaction --classmap-authoritative --ignore-platform-req=php"
-
       - name: "Install phpunit"
         run: "composer require phpunit/phpunit"
 
