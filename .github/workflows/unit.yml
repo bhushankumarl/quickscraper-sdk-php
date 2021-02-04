@@ -14,6 +14,11 @@ jobs:
 
     strategy:
       matrix:
+       dependencies:
+          - "highest"
+          - "locked"
+          - "classmap-authoritative"
+          - "no-scripts"
         php-version:
           - "7.2.25"
         operating-system:
@@ -35,6 +40,8 @@ jobs:
           php-version: "${{ matrix.php-version }}"
           ini-values: memory_limit=-1
           tools: composer:v2
+      - name: "Check php version"
+        run: php -v
 
       - name: "Cache dependencies"
         uses: "actions/cache@v2"
@@ -61,5 +68,11 @@ jobs:
         if: ${{ matrix.dependencies == 'no-scripts' }}
         run: "composer install --no-scripts --ignore-platform-req=php"
 
+      - name: "Tests phpunit version"
+        run: "phpunit -v"
+      
+      - name: "Tests phpunit version"
+        run: "./vendor/bin/phpunit -v"
+      
       - name: "Tests"
-        run: "vendor/bin/phpunit"
+        run: "./vendor/bin/phpunit"
