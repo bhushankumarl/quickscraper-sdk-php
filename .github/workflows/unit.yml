@@ -20,7 +20,7 @@ jobs:
           - "classmap-authoritative"
           - "no-scripts"
         php-version:
-          - "7.2.25"
+          - "8.0"
         operating-system:
           - "ubuntu-latest"
 
