@@ -14,11 +14,6 @@ jobs:
 
     strategy:
       matrix:
-        dependencies:
-          - "highest"
-          - "locked"
-          - "classmap-authoritative"
-          - "no-scripts"
         php-version:
           - "7.2.25"
         operating-system:
@@ -55,9 +50,6 @@ jobs:
       - name: "Install phpunit"
         run: "composer require phpunit/phpunit"
 
-      - name: "Tests phpunit version"
-        run: "phpunit -v"
-      
       - name: "Tests phpunit version"
         run: "./vendor/bin/phpunit -v"
       
