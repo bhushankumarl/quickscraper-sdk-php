@@ -14,8 +14,8 @@ use PHPUnit\Framework\TestCase;
  */
 class QuickScraperClassTest extends TestCase
 {
-    private $accessToken = '';
-    private $parseUrl;
+    private $http;
+
     private $DEFAULT = array(
       "CLIENT" =>'NODEJS_CLIENT_LIB',
       "HOST" => 'https://rest.quickscraper.co/'
@@ -57,20 +57,24 @@ class QuickScraperClassTest extends TestCase
     }
     /**
      * Just check if getting html result
-     */
-    public function testGetHtmlAllowOnlyStringParameter()
-    {
-        $object = new QuickScraperClass(getenv('QS_ACCESS_TOKEN'));
-        $httpClient = new Client();
-        $requestUrl = $this->prepareRequestUrl('https://google.com');
-        $headers = $this->prepareHeaders();
-        $options = array(
-            'headers'=> $headers
-        );
-        $response = $httpClient->getAsync($requestUrl, $options)->wait();
+     * @expectedException InvalidArgumentException
 
-        $this->getStatus(400,$response->getStatusCode());
-    }
+     */
+    // public function testGetHtmlAllowOnlyStringParameter()
+    // {
+    //     var_dump(getenv('QS_ACCESS_TOKEN'));
+    //     $object = new QuickScraperClass(getenv('QS_ACCESS_TOKEN'));
+    //     $httpClient = new Client();
+    //     $requestUrl = $this->prepareRequestUrl('https://google.com');
+    //     $headers = $this->prepareHeaders();
+    //     $options = array(
+    //         'headers'=> $headers
+    //     );
+    //     $response = $httpClient->get($requestUrl, $options);
+
+    //     $this->expectException(200,$response->getStatusCode());
+    //     $this->expectException(200,$response->getStatusCode());
+    // }
     
     /**
      * Test the only existing method of the class
@@ -92,7 +96,7 @@ class QuickScraperClassTest extends TestCase
     {
         $object = new QuickScraperClass(getenv('QS_ACCESS_TOKEN'));
 
-        $requestUrl = $object->parseUrl.'?access_token='.$this->accessToken.'&URL='.$url;
+        $requestUrl = $this->DEFAULT['HOST'].'parse'.'?access_token='.getenv('QS_ACCESS_TOKEN').'&URL='.$url;
         return $requestUrl;
     }
     private function prepareHeaders() {
