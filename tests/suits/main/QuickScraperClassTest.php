@@ -57,24 +57,64 @@ class QuickScraperClassTest extends TestCase
     }
     /**
      * Just check if getting html result
-     * @expectedException InvalidArgumentException
-
      */
-    // public function testGetHtmlAllowOnlyStringParameter()
-    // {
-    //     var_dump(getenv('QS_ACCESS_TOKEN'));
-    //     $object = new QuickScraperClass(getenv('QS_ACCESS_TOKEN'));
-    //     $httpClient = new Client();
-    //     $requestUrl = $this->prepareRequestUrl('https://google.com');
-    //     $headers = $this->prepareHeaders();
-    //     $options = array(
-    //         'headers'=> $headers
-    //     );
-    //     $response = $httpClient->get($requestUrl, $options);
+    public function testGetHtml()
+    {
+        $object = new QuickScraperClass(getenv('QS_ACCESS_TOKEN'));
+        $httpClient = new Client();
+        $requestUrl = $this->prepareRequestUrl('https://google.com');
+        $headers = $this->prepareHeaders();
+        $options = array(
+            'headers'=> $headers
+        );
+        try{
+            $response = $httpClient->get($requestUrl, $options);
+            $this->assertEquals(200,$response->getStatusCode());
 
-    //     $this->expectException(200,$response->getStatusCode());
-    //     $this->expectException(200,$response->getStatusCode());
-    // }
+        }catch(\Exception $error){
+            $this->expectException($error);
+        }
+    }
+    /**
+     * Just check if getting html result
+     */
+    public function testGetHtmlWrongAccessToken()
+    {
+        $url = "http://google.com";
+        $requestUrl = $this->DEFAULT['HOST'].'parse'.'?access_token=dummy&URL='.$url;
+       
+        $httpClient = new Client();
+        $headers = $this->prepareHeaders();
+        $options = array(
+            'headers'=> $headers
+        );
+        try{
+            $response = $httpClient->getAsync($requestUrl, $options)->wait();
+            $this->assertEquals(200,$response->getStatusCode());
+        }catch(\Exception $error){
+            $this->assertEquals(403,$error->getCode());
+        }
+    }
+    /**
+     * Just check if getting html result
+     */
+    public function testGetHtmlBlankAccessToken()
+    {
+        $url = "http://google.com";
+        $requestUrl = $this->DEFAULT['HOST'].'parse'.'?access_token=&URL='.$url;
+       
+        $httpClient = new Client();
+        $headers = $this->prepareHeaders();
+        $options = array(
+            'headers'=> $headers
+        );
+        try{
+            $response = $httpClient->getAsync($requestUrl, $options)->wait();
+            $this->assertEquals(200,$response->getStatusCode());
+        }catch(\Exception $error){
+            $this->assertEquals(403,$error->getCode());
+        }
+    }
     
     /**
      * Test the only existing method of the class
