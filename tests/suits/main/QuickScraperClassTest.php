@@ -14,7 +14,6 @@ use PHPUnit\Framework\TestCase;
  */
 class QuickScraperClassTest extends TestCase
 {
-    private $http;
 
     private $DEFAULT = array(
       "CLIENT" =>'NODEJS_CLIENT_LIB',
