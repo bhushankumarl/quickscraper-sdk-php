@@ -4,6 +4,7 @@ namespace QuickScraper\Main;
 
 use GuzzleHttp\Client;
 use PHPUnit\Framework\TestCase;
+use QuickScraper\Constants\Config;
 
 /**
  *  Corresponding class to test YourClass class
@@ -33,7 +34,7 @@ class QuickScraperClassTest extends TestCase
      */
     public function testAccessToken()
     {
-        $this->assertTrue(true, getenv('QS_ACCESS_TOKEN'));
+        $this->assertTrue(true, Config::getAccessToken());
     }
     /**
      * Just check if set host is number value
@@ -59,7 +60,7 @@ class QuickScraperClassTest extends TestCase
      */
     public function testGetHtml()
     {
-        $object = new QuickScraperClass(getenv('QS_ACCESS_TOKEN'));
+        $object = new QuickScraperClass(Config::getAccessToken());
         $httpClient = new Client();
         $requestUrl = $this->prepareRequestUrl('https://google.com');
         $headers = $this->prepareHeaders();
@@ -114,28 +115,34 @@ class QuickScraperClassTest extends TestCase
             $this->assertEquals(403,$error->getCode());
         }
     }
-    
     /**
-     * Test the only existing method of the class
-     *
-     * @dataProvider getNamesAndGreetings
-     *
-     * @param $name
-     * @param $expected
+     * Just check if writeFile
      */
-    public function testSayHello($expected, $name)
+    public function testWriteFileGetHtml()
     {
-        $object = new QuickScraperClass('dummy');
+        $object = new QuickScraperClass(Config::getAccessToken());
+        $httpClient = new Client();
+        $requestUrl = $this->prepareRequestUrl('https://google.com');
+        $headers = $this->prepareHeaders();
+        $options = array(
+            'headers'=> $headers
+        );
+        try{
+            $response = $object->writeHtmlToFile('http://google.com','test.log');
+            $this->objectHasAttribute('data');
 
-        $this->assertTrue($expected, $object->sayHello($name));
+        }catch(\Exception $error){
+            $this->expectException($error);
+        }
     }
-
+    
+   
 
     private function prepareRequestUrl(string $url): string
     {
-        $object = new QuickScraperClass(getenv('QS_ACCESS_TOKEN'));
+        $object = new QuickScraperClass(Config::getAccessToken());
 
-        $requestUrl = $this->DEFAULT['HOST'].'parse'.'?access_token='.getenv('QS_ACCESS_TOKEN').'&URL='.$url;
+        $requestUrl = $this->DEFAULT['HOST'].'parse'.'?access_token='.Config::getAccessToken().'&URL='.$url;
         return $requestUrl;
     }
     private function prepareHeaders() {
@@ -144,16 +151,5 @@ class QuickScraperClassTest extends TestCase
       );
       return $headers;
     }
-    /**
-     * Data for sayHello
-     *
-     * @return array
-     */
-    public function getNamesAndGreetings(): array
-    {
-        return [
-            [true, "Hello World!"],
-            [true, "Hello World!"]
-        ];
-    }
+   
 }

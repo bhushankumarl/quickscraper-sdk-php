@@ -13,6 +13,10 @@ class Config{
   public function getApiUrl(){
     return $this->apiUrl;
   }
+  public static function getAccessToken(){
+    return getenv('QS_ACCESS_TOKEN');
+  }
+  
 
 }
 ?>

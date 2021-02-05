@@ -26,10 +26,6 @@ class QuickScraperClass
       }
     }
     
-    public function sayHello($name): string
-    {
-        return sprintf("Hello!".ucfirst($name));
-    }
     
     public function setHost(string $host): string
     {
@@ -42,6 +38,7 @@ class QuickScraperClass
     {
         return $this->accessToken = $accessToken;
     }
+
     public function getHtml(string $url)
     {
       $requestUrl = $this->prepareRequestUrl($url);
