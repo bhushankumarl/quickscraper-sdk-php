@@ -24,8 +24,8 @@ composer require quickscraper/sdk
 <?php
 require_once './vendor/autoload.php';
 use QuickScraper\Main\QuickScraperClass;
-$sdk =  new QuickScraperClass('Your Quickscraper Api Key');
-print_r($sdk->getHtml("Enter Your Scraping URL"));
+$sdk =  new QuickScraperClass('ACCESS_TOKEN');
+print_r($sdk->getHtml("https://mylocation.org"));
 
 ?>
 ```
