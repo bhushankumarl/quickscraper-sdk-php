@@ -15,13 +15,12 @@ use QuickScraper\Constants\Config;
  */
 class QuickScraperClassTest extends TestCase
 {
-
     private $DEFAULT = array(
       "CLIENT" =>'NODEJS_CLIENT_LIB',
       "HOST" => 'https://rest.quickscraper.co/'
     );
     /**
-     * Just check if the YourClass has no syntax errors
+     * Just check if set host
      */
     public function testIsThereAnySyntaxError()
     {
@@ -30,7 +29,7 @@ class QuickScraperClassTest extends TestCase
         $this->assertTrue(true, $object->setHost('test'));
     }
     /**
-     * Just check if the YourClass has no syntax errors
+     * Just check if accesstoken get
      */
     public function testAccessToken()
     {
@@ -43,17 +42,17 @@ class QuickScraperClassTest extends TestCase
     {
         $object = new QuickScraperClass('Dummy');
 
-        $this->assertFalse(false,"Only string allow in set host : ".$object->setHost(213));
+        $this->assertFalse(false, "Only string allow in set host : ".$object->setHost(213));
     }
     
     /**
-     * Just check if set host is number value
+     * Just check if set accesstoken is number value
      */
     public function testSetAccessTokenNumberType()
     {
         $object = new QuickScraperClass('Dummy');
 
-        $this->assertFalse(false,"Only string allow in set setAccessToken : ".$object->setAccessToken(213));
+        $this->assertFalse(false, "Only string allow in set setAccessToken : ".$object->setAccessToken(213));
     }
     /**
      * Just check if getting html result
@@ -67,16 +66,15 @@ class QuickScraperClassTest extends TestCase
         $options = array(
             'headers'=> $headers
         );
-        try{
+        try {
             $response = $httpClient->get($requestUrl, $options);
-            $this->assertEquals(200,$response->getStatusCode());
-
-        }catch(\Exception $error){
+            $this->assertEquals(200, $response->getStatusCode());
+        } catch (\Exception $error) {
             $this->expectException($error);
         }
     }
     /**
-     * Just check if getting html result
+     * Just check if getting html result with dummy accesstoken
      */
     public function testGetHtmlWrongAccessToken()
     {
@@ -88,15 +86,15 @@ class QuickScraperClassTest extends TestCase
         $options = array(
             'headers'=> $headers
         );
-        try{
+        try {
             $response = $httpClient->getAsync($requestUrl, $options)->wait();
-            $this->assertEquals(200,$response->getStatusCode());
-        }catch(\Exception $error){
-            $this->assertEquals(403,$error->getCode());
+            $this->assertEquals(200, $response->getStatusCode());
+        } catch (\Exception $error) {
+            $this->assertEquals(403, $error->getCode());
         }
     }
     /**
-     * Just check if getting html result
+     * Just check if getting html result with blank accesstoken
      */
     public function testGetHtmlBlankAccessToken()
     {
@@ -108,11 +106,11 @@ class QuickScraperClassTest extends TestCase
         $options = array(
             'headers'=> $headers
         );
-        try{
+        try {
             $response = $httpClient->getAsync($requestUrl, $options)->wait();
-            $this->assertEquals(200,$response->getStatusCode());
-        }catch(\Exception $error){
-            $this->assertEquals(403,$error->getCode());
+            $this->assertEquals(200, $response->getStatusCode());
+        } catch (\Exception $error) {
+            $this->assertEquals(403, $error->getCode());
         }
     }
     /**
@@ -127,17 +125,17 @@ class QuickScraperClassTest extends TestCase
         $options = array(
             'headers'=> $headers
         );
-        try{
-            $response = $object->writeHtmlToFile('http://google.com','test.log');
+        try {
+            $response = $object->writeHtmlToFile('http://google.com', 'test.log');
             $this->objectHasAttribute('data');
-
-        }catch(\Exception $error){
+        } catch (\Exception $error) {
             $this->expectException($error);
         }
     }
     
-   
-
+    /**
+     * Just check if writeFile
+    */
     private function prepareRequestUrl(string $url): string
     {
         $object = new QuickScraperClass(Config::getAccessToken());
@@ -145,11 +143,11 @@ class QuickScraperClassTest extends TestCase
         $requestUrl = $this->DEFAULT['HOST'].'parse'.'?access_token='.Config::getAccessToken().'&URL='.$url;
         return $requestUrl;
     }
-    private function prepareHeaders() {
-      $headers = array(
+    private function prepareHeaders()
+    {
+        $headers = array(
         'client' => $this->DEFAULT['CLIENT']
       );
-      return $headers;
+        return $headers;
     }
-   
 }
