@@ -23,8 +23,7 @@ composer require quickscraper/sdk
 
 <?php
 require_once './vendor/autoload.php';
-use QuickScraper\Main\QuickScraperClass;
-$sdk =  new QuickScraperClass('ACCESS_TOKEN');
+$sdk =  new QuickScraper\Main\QuickScraperClass('ACCESS_TOKEN');
 print_r($sdk->getHtml("https://mylocation.org"));
 
 ?>
