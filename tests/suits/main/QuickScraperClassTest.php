@@ -125,7 +125,7 @@ class QuickScraperClassTest extends TestCase
     private function prepareHeaders()
     {
         $headers = array(
-        'client' => 'NODEJS_CLIENT_LIB'
+        'client' => 'PHP_CLIENT_LIB'
       );
         return $headers;
     }

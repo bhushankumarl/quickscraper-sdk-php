@@ -11,14 +11,14 @@ class QuickScraperClass
     private $accessToken = '';
     private $parseUrl;
     private $DEFAULT = array(
-      'CLIENT' =>'NODEJS_CLIENT_LIB',
+      'CLIENT' =>'PHP_CLIENT_LIB',
       'HOST' => ''
     );
     
     public function __construct(string $accessToken)
     {
         $this->loadPackageFiles(__DIR__.'/../');
-        $this->DEFAULT['HOST'] = (new Config)->getApiUrl();
+        $this->DEFAULT['HOST'] = (new Config)->getBaseUrl();
         $this->parseUrl = $this->DEFAULT['HOST'].'parse';
         if ($accessToken) {
             $this->setAccessToken($accessToken);
