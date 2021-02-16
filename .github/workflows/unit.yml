@@ -1,0 +1,56 @@
+name: "PHPUnit tests"
+
+on:
+  push:
+  pull_request:
+  schedule:
+    - cron: "* */5 * * *"
+
+jobs:
+  phpunit:
+    name: "PHPUnit tests"
+
+    runs-on: ${{ matrix.operating-system }}
+
+    env:
+      QS_ACCESS_TOKEN: ${{ secrets.QS_ACCESS_TOKEN }}
+      DEBUG: "QS:*"
+
+    strategy:
+      matrix:
+        php-version:
+          - "7.2.25"
+        operating-system:
+          - "ubuntu-latest"
+
+    steps:
+      - name: "Checkout"
+        uses: "actions/checkout@v2"
+
+      - name: "Install PHP"
+        uses: "shivammathur/setup-php@v2"
+        with:
+          coverage: "pcov"
+          php-version: "${{ matrix.php-version }}"
+          ini-values: memory_limit=-1
+          tools: composer:v2
+      - name: "Check php version"
+        run: php -v
+
+      - name: "Cache dependencies"
+        uses: "actions/cache@v2"
+        with:
+          path: |
+            ~/.composer/cache
+            vendor
+          key: "php-${{ matrix.php-version }}-${{ matrix.dependencies }}"
+          restore-keys: "php-${{ matrix.php-version }}-${{ matrix.dependencies }}"
+
+      - name: "Install phpunit"
+        run: "composer require phpunit/phpunit"
+
+      - name: "Tests phpunit version"
+        run: "./vendor/bin/phpunit -v"
+      
+      - name: "Run the Test cases from tests folder"
+        run: "./vendor/bin/phpunit"
