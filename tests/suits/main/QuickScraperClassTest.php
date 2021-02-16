@@ -8,10 +8,6 @@ use QuickScraper\Constants\Config;
 
 class QuickScraperClassTest extends TestCase
 {
-    private $DEFAULT = array(
-      'CLIENT' =>'NODEJS_CLIENT_LIB',
-      'HOST' => 'https://rest.quickscraper.co/'
-    );
 
     /** Just check if set host */
     public function testIsThereAnySyntaxError()
@@ -66,7 +62,7 @@ class QuickScraperClassTest extends TestCase
     public function testGetHtmlWrongAccessToken()
     {
         $url = 'http://google.com';
-        $requestUrl = $this->DEFAULT['HOST'].'parse'.'?access_token=dummy&URL='.$url;
+        $requestUrl = 'https://rest.quickscraper.co/parse?access_token=dummy&URL='.$url;
        
         $httpClient = new Client();
         $headers = $this->prepareHeaders();
@@ -85,7 +81,7 @@ class QuickScraperClassTest extends TestCase
     public function testGetHtmlBlankAccessToken()
     {
         $url = 'http://google.com';
-        $requestUrl = $this->DEFAULT['HOST'].'parse'.'?access_token=&URL='.$url;
+        $requestUrl = 'https://rest.quickscraper.co/parse?access_token=&URL='.$url;
        
         $httpClient = new Client();
         $headers = $this->prepareHeaders();
@@ -123,13 +119,13 @@ class QuickScraperClassTest extends TestCase
     {
         $object = new QuickScraperClass(Config::getAccessToken());
 
-        $requestUrl = $this->DEFAULT['HOST'].'parse'.'?access_token='.Config::getAccessToken().'&URL='.$url;
+        $requestUrl = 'https://rest.quickscraper.co/parse?access_token='.Config::getAccessToken().'&URL='.$url;
         return $requestUrl;
     }
     private function prepareHeaders()
     {
         $headers = array(
-        'client' => $this->DEFAULT['CLIENT']
+        'client' => 'NODEJS_CLIENT_LIB'
       );
         return $headers;
     }
