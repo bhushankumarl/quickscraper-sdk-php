@@ -6,7 +6,6 @@ use Exception;
 use QuickScraper\Constants\Config;
 use GuzzleHttp\Client;
 
-
 class QuickScraperClass
 {
     private $accessToken = '';
@@ -18,20 +17,19 @@ class QuickScraperClass
     
     public function __construct(string $accessToken)
     {
-      $this->loadPackageFiles(__DIR__.'/../');
-      $this->DEFAULT['HOST'] = (new Config)->getApiUrl();
-      $this->parseUrl = $this->DEFAULT['HOST'].'parse';
-      if ($accessToken) {
-        $this->setAccessToken($accessToken);
-      }
+        $this->loadPackageFiles(__DIR__.'/../');
+        $this->DEFAULT['HOST'] = (new Config)->getApiUrl();
+        $this->parseUrl = $this->DEFAULT['HOST'].'parse';
+        if ($accessToken) {
+            $this->setAccessToken($accessToken);
+        }
     }
-    
     
     public function setHost(string $host): string
     {
-      if ($host) {
-          return $this->parseUrl = $host.'parse';
-      }
+        if ($host) {
+            return $this->parseUrl = $host.'parse';
+        }
     }
     
     public function setAccessToken(string $accessToken): string
@@ -41,55 +39,52 @@ class QuickScraperClass
 
     public function getHtml(string $url)
     {
-      $requestUrl = $this->prepareRequestUrl($url);
-      $headers = $this->prepareHeaders();
-      $options = array(
+        $requestUrl = $this->prepareRequestUrl($url);
+        $headers = $this->prepareHeaders();
+        $options = array(
         'headers'=> $headers,
         'verify' => false
       );
-      try {
-        $httpClient = new Client();
-        $response = $httpClient->getAsync($requestUrl, $options)->wait();
+        try {
+            $httpClient = new Client();
+            $response = $httpClient->getAsync($requestUrl, $options)->wait();
 
-        return array(
+            return array(
           'data'=>$response->getBody()->getContents(),
-          // 'metadata'=>$metadata
         );
-      } catch (\Throwable $th) {
-        throw new Exception($th);
-      }
+        } catch (\Throwable $th) {
+            throw new Exception($th);
+        }
     }
     private function prepareRequestUrl(string $url): string
     {
         $requestUrl = $this->parseUrl.'?access_token='.$this->accessToken.'&URL='.$url;
         return $requestUrl;
     }
-    private function prepareHeaders() {
-      $headers = array(
+    private function prepareHeaders()
+    {
+        $headers = array(
         'client' => $this->DEFAULT['CLIENT']
       );
-      return $headers;
+        return $headers;
     }
-    public function writeHtmlToFile(string $url,string $filePath) {
-      $isFileExits = fopen($filePath,'w');
-      if (!$isFileExits) {
-        throw new Exception('File does not exits.');
-      }
-      // Open the file to get existing content
-      $current = file_get_contents($filePath);
-      // Append a new person to the file
-      $getHtml = $this->getHtml($url);
-      // Write the contents back to the file
-      file_put_contents($filePath, $getHtml);
-      fclose($isFileExits);
-      return $getHtml;
+    public function writeHtmlToFile(string $url, string $filePath)
+    {
+        $isFileExits = fopen($filePath, 'w');
+        if (!$isFileExits) {
+            throw new Exception('File does not exits.');
+        }
+        $current = file_get_contents($filePath);
+        $getHtml = $this->getHtml($url);
+        file_put_contents($filePath, $getHtml);
+        fclose($isFileExits);
+        return $getHtml;
     }
     // Load all package from the project
     public function loadPackageFiles($dir)
     {
         $composer = json_decode(file_get_contents('$dir/composer.json'), 1);
         $namespaces = $composer['autoload']['psr-4'];
-
         // Foreach namespace specified in the composer, load the given classes
         foreach ($namespaces as $namespace => $classpaths) {
             if (!is_array($classpaths)) {

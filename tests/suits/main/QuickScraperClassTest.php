@@ -6,38 +6,28 @@ use GuzzleHttp\Client;
 use PHPUnit\Framework\TestCase;
 use QuickScraper\Constants\Config;
 
-/**
- *  Corresponding class to test YourClass class
- *
- *  For each class in your library, there should be a corresponding unit test
- *
- *  @author yourname
- */
 class QuickScraperClassTest extends TestCase
 {
     private $DEFAULT = array(
       'CLIENT' =>'NODEJS_CLIENT_LIB',
       'HOST' => 'https://rest.quickscraper.co/'
     );
-    /**
-     * Just check if set host
-     */
+
+    /** Just check if set host */
     public function testIsThereAnySyntaxError()
     {
         $object = new QuickScraperClass('Dummy');
 
         $this->assertTrue(true, $object->setHost('test'));
     }
-    /**
-     * Just check if accesstoken get
-     */
+
+    /** Just check if accesstoken get */
     public function testAccessToken()
     {
         $this->assertTrue(true, Config::getAccessToken());
     }
-    /**
-     * Just check if set host is number value
-     */
+
+    /** Just check if set host is number value */
     public function testSetHost()
     {
         $object = new QuickScraperClass('Dummy');
@@ -45,18 +35,16 @@ class QuickScraperClassTest extends TestCase
         $this->assertFalse(false, 'Only string allow in set host : '.$object->setHost(213));
     }
     
-    /**
-     * Just check if set accesstoken is number value
-     */
+
+    /** Just check if set accesstoken is number value */
     public function testSetAccessTokenNumberType()
     {
         $object = new QuickScraperClass('Dummy');
 
         $this->assertFalse(false, 'Only string allow in set setAccessToken : '.$object->setAccessToken(213));
     }
-    /**
-     * Just check if getting html result
-     */
+
+    /** Just check if getting html result */
     public function testGetHtml()
     {
         $object = new QuickScraperClass(Config::getAccessToken());
@@ -73,9 +61,8 @@ class QuickScraperClassTest extends TestCase
             $this->expectException($error);
         }
     }
-    /**
-     * Just check if getting html result with dummy accesstoken
-     */
+
+    /** Just check if getting html result with dummy accesstoken */
     public function testGetHtmlWrongAccessToken()
     {
         $url = 'http://google.com';
@@ -93,9 +80,8 @@ class QuickScraperClassTest extends TestCase
             $this->assertEquals(403, $error->getCode());
         }
     }
-    /**
-     * Just check if getting html result with blank accesstoken
-     */
+
+    /** Just check if getting html result with blank accesstoken */
     public function testGetHtmlBlankAccessToken()
     {
         $url = 'http://google.com';
@@ -113,9 +99,8 @@ class QuickScraperClassTest extends TestCase
             $this->assertEquals(403, $error->getCode());
         }
     }
-    /**
-     * Just check if writeFile
-     */
+
+    /** Just check if writeFile */
     public function testWriteFileGetHtml()
     {
         $object = new QuickScraperClass(Config::getAccessToken());
@@ -133,9 +118,7 @@ class QuickScraperClassTest extends TestCase
         }
     }
     
-    /**
-     * Just check if writeFile
-    */
+    /** Just check if writeFile */
     private function prepareRequestUrl(string $url): string
     {
         $object = new QuickScraperClass(Config::getAccessToken());
