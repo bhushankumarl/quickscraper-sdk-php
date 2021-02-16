@@ -12,13 +12,13 @@ class QuickScraperClass
     private $accessToken = '';
     private $parseUrl;
     private $DEFAULT = array(
-      "CLIENT" =>'NODEJS_CLIENT_LIB',
-      "HOST" => ''
+      'CLIENT' =>'NODEJS_CLIENT_LIB',
+      'HOST' => ''
     );
     
     public function __construct(string $accessToken)
     {
-      $this->loadPackageFiles(__DIR__."/../");
+      $this->loadPackageFiles(__DIR__.'/../');
       $this->DEFAULT['HOST'] = (new Config)->getApiUrl();
       $this->parseUrl = $this->DEFAULT['HOST'].'parse';
       if ($accessToken) {
@@ -87,7 +87,7 @@ class QuickScraperClass
     // Load all package from the project
     public function loadPackageFiles($dir)
     {
-        $composer = json_decode(file_get_contents("$dir/composer.json"), 1);
+        $composer = json_decode(file_get_contents('$dir/composer.json'), 1);
         $namespaces = $composer['autoload']['psr-4'];
 
         // Foreach namespace specified in the composer, load the given classes
@@ -97,12 +97,12 @@ class QuickScraperClass
             }
             spl_autoload_register(function ($classname) use ($namespace, $classpaths, $dir) {
                 // Check if the namespace matches the class we are looking for
-                if (preg_match("#^".preg_quote($namespace)."#", $classname)) {
+                if (preg_match('#^'.preg_quote($namespace).'#', $classname)) {
                     // Remove the namespace from the file path since it's psr4
-                    $classname = str_replace($namespace, "", $classname);
-                    $filename = preg_replace("#\\\\#", "/", $classname).".php";
+                    $classname = str_replace($namespace, '', $classname);
+                    $filename = preg_replace('#\\\\#', '/', $classname).'.php';
                     foreach ($classpaths as $classpath) {
-                        $fullpath = $dir."/".$classpath."/$filename";
+                        $fullpath = $dir.'/'.$classpath.'/$filename';
                         if (file_exists($fullpath)) {
                             include_once $fullpath;
                         }

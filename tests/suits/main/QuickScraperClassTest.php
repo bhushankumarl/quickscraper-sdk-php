@@ -16,8 +16,8 @@ use QuickScraper\Constants\Config;
 class QuickScraperClassTest extends TestCase
 {
     private $DEFAULT = array(
-      "CLIENT" =>'NODEJS_CLIENT_LIB',
-      "HOST" => 'https://rest.quickscraper.co/'
+      'CLIENT' =>'NODEJS_CLIENT_LIB',
+      'HOST' => 'https://rest.quickscraper.co/'
     );
     /**
      * Just check if set host
@@ -42,7 +42,7 @@ class QuickScraperClassTest extends TestCase
     {
         $object = new QuickScraperClass('Dummy');
 
-        $this->assertFalse(false, "Only string allow in set host : ".$object->setHost(213));
+        $this->assertFalse(false, 'Only string allow in set host : '.$object->setHost(213));
     }
     
     /**
@@ -52,7 +52,7 @@ class QuickScraperClassTest extends TestCase
     {
         $object = new QuickScraperClass('Dummy');
 
-        $this->assertFalse(false, "Only string allow in set setAccessToken : ".$object->setAccessToken(213));
+        $this->assertFalse(false, 'Only string allow in set setAccessToken : '.$object->setAccessToken(213));
     }
     /**
      * Just check if getting html result
@@ -78,7 +78,7 @@ class QuickScraperClassTest extends TestCase
      */
     public function testGetHtmlWrongAccessToken()
     {
-        $url = "http://google.com";
+        $url = 'http://google.com';
         $requestUrl = $this->DEFAULT['HOST'].'parse'.'?access_token=dummy&URL='.$url;
        
         $httpClient = new Client();
@@ -98,7 +98,7 @@ class QuickScraperClassTest extends TestCase
      */
     public function testGetHtmlBlankAccessToken()
     {
-        $url = "http://google.com";
+        $url = 'http://google.com';
         $requestUrl = $this->DEFAULT['HOST'].'parse'.'?access_token=&URL='.$url;
        
         $httpClient = new Client();

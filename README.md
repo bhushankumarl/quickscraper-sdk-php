@@ -1,6 +1,6 @@
 # Quick Scraper PHP Composer SDK
 
-<img src="https://app.quickscraper.co/assets/images/quick_scraper_logo_3.png" width="300" />
+<img src='https://app.quickscraper.co/assets/images/quick_scraper_logo_3.png' width='300' />
 
 
 ## Get Free Access (Free Forever)
@@ -24,7 +24,7 @@ composer require quickscraper/sdk
 <?php
 require_once './vendor/autoload.php';
 $sdk =  new QuickScraper\Main\QuickScraperClass('ACCESS_TOKEN');
-print_r($sdk->getHtml("https://mylocation.org"));
+print_r($sdk->getHtml('https://mylocation.org'));
 
 ?>
 ```
