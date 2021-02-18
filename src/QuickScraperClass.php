@@ -46,12 +46,16 @@ class QuickScraperClass
         'verify' => false
       );
         try {
-            $httpClient = new Client();
-            $response = $httpClient->getAsync($requestUrl, $options)->wait();
+          $httpClient = new Client();
+          $response = $httpClient->getAsync($requestUrl, $options)->wait();
 
-            return array(
-          'data'=>$response->getBody()->getContents(),
-        );
+          return array(
+            'data'=>$response->getBody()->getContents(),
+            'metadata'=> array(
+              'quotaMax' => '',
+              'quotaRemaining' => '',
+            ),
+          );
         } catch (\Throwable $th) {
             throw new Exception($th);
         }
