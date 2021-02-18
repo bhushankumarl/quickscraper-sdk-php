@@ -12,7 +12,8 @@ class QuickScraperClass
     private $parseUrl;
     private $DEFAULT = array(
       'CLIENT' =>'PHP_CLIENT_LIB',
-      'HOST' => ''
+      'HOST' => '',
+      'CLIENT_VERSION' => '1.0.0'
     );
     
     public function __construct(string $accessToken)
@@ -68,7 +69,8 @@ class QuickScraperClass
     private function prepareHeaders()
     {
         $headers = array(
-        'client' => $this->DEFAULT['CLIENT']
+        'client' => $this->DEFAULT['CLIENT'],
+        'clientVersion' => $this->DEFAULT['CLIENT_VERSION']
       );
         return $headers;
     }
