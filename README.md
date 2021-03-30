@@ -16,7 +16,7 @@
 composer require quickscraper/sdk
 ```
 
-## Examples 1
+## Basic usage
 
 
 ```php
@@ -28,7 +28,114 @@ print_r($sdk->getHtml('https://mylocation.org'));
 
 ?>
 ```
+### Rendering Javascript
 
+``` php
+require_once './vendor/autoload.php';
+
+$quickScraperClient = new QuickScraper\Main\QuickScraperClass('ACCESS_TOKEN');
+$quickScraperClient->setAccessToken('YOUR_ACCESS_TOKEN');
+$response = $quickScraperClient->getHtml('http://httpbin.org/ip', {
+    render: true
+});
+print_r($response);
+
+```
+
+### Custom Headers
+
+``` php
+require_once './vendor/autoload.php';
+
+$quickScraperClient = new QuickScraper\Main\QuickScraperClass('ACCESS_TOKEN');
+$quickScraperClient->setAccessToken('YOUR_ACCESS_TOKEN');
+$response = $quickScraperClient->getHtml('http://httpbin.org/ip', {
+    headers: {
+        'X-My-Custom-Header': 'QS-APP'
+    }
+});
+print_r($response);
+
+```
+### Sessions
+
+``` php
+require_once './vendor/autoload.php';
+
+$quickScraperClient = new QuickScraper\Main\QuickScraperClass('ACCESS_TOKEN');
+$QuickScraperClient->setAccessToken('YOUR_ACCESS_TOKEN');
+$response = $quickScraperClient->getHtml('http://httpbin.org/ip', {
+    session_number: 'YOUR-LONG-UNIQUE-STRING'
+});
+print_r($response);
+
+```
+
+### Geographic Location
+
+``` php
+require_once './vendor/autoload.php';
+
+$quickScraperClient = new QuickScraper\Main\QuickScraperClass('ACCESS_TOKEN');
+$quickScraperClient->setAccessToken('YOUR_ACCESS_TOKEN');
+$response = $quickScraperClient->getHtml('http://httpbin.org/ip', {
+    country_code: 'US'
+});
+print_r($response);
+```
+
+### Premium Residential/Mobile Proxy Pools
+
+``` php
+require_once './vendor/autoload.php';
+
+$quickScraperClient = new QuickScraper\Main\QuickScraperClass('ACCESS_TOKEN');
+$quickScraperClient->setAccessToken('YOUR_ACCESS_TOKEN');
+$response = $quickScraperClient->getHtml('http://httpbin.org/ip', {
+    premium: true
+});
+print_r($response);
+```
+
+### POST/PUT Requests
+
+``` php
+require_once './vendor/autoload.php';
+
+$QuickScraperClient = new QuickScraper\Main\QuickScraperClass('ACCESS_TOKEN');
+$QuickScraperClient->setAccessToken('YOUR_ACCESS_TOKEN');
+$responsePost = $QuickScraperClient->post('http://httpbin.org/ip', {
+    body: {
+        'foo': 'bar'
+    }
+});
+print_r($response);
+
+$responsePut = $QuickScraperClient->put('http://httpbin.org/ip', {
+    body: {
+        'foo': 'bar'
+    }
+});
+print_r($response);
+```
+
+
+#### Proxy Mode
+
+``` php
+$require_once './vendor/autoload.php';
+
+$QuickScraperClient = new QuickScraper\Main\QuickScraperClass('ACCESS_TOKEN');
+
+$options = {
+    method: 'GET',
+    url: 'http://httpbin.org/ip',
+    proxy: 'http://quickscraper:YOURAPIKEY@proxy-server.quickscraper.co:1008',
+};
+$response = $quickScraperClient->getHtml('http://httpbin.org/ip', $options);
+print_r($response);
+
+```
 
 ## Do you need an expert?
 
