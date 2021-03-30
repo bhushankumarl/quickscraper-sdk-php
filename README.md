@@ -109,14 +109,14 @@ $responsePost = $quickScraperClient->post('http://httpbin.org/ip', {
         'foo': 'bar'
     }
 });
-print_r($response);
+print_r($responsePost);
 
 $responsePut = $quickScraperClient->put('http://httpbin.org/ip', {
     body: {
         'foo': 'bar'
     }
 });
-print_r($response);
+print_r($responsePut);
 ```
 
 
