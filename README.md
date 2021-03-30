@@ -16,7 +16,7 @@
 composer require quickscraper/sdk
 ```
 
-## Basic usage
+### Basic usage
 
 
 ```php
@@ -120,7 +120,7 @@ print_r($response);
 ```
 
 
-#### Proxy Mode
+### Proxy Mode
 
 ``` php
 $require_once './vendor/autoload.php';
