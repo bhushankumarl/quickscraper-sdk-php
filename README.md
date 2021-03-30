@@ -102,16 +102,16 @@ print_r($response);
 ``` php
 require_once './vendor/autoload.php';
 
-$QuickScraperClient = new QuickScraper\Main\QuickScraperClass('ACCESS_TOKEN');
-$QuickScraperClient->setAccessToken('YOUR_ACCESS_TOKEN');
-$responsePost = $QuickScraperClient->post('http://httpbin.org/ip', {
+$quickScraperClient = new QuickScraper\Main\QuickScraperClass('ACCESS_TOKEN');
+$quickScraperClient->setAccessToken('YOUR_ACCESS_TOKEN');
+$responsePost = $quickScraperClient->post('http://httpbin.org/ip', {
     body: {
         'foo': 'bar'
     }
 });
 print_r($response);
 
-$responsePut = $QuickScraperClient->put('http://httpbin.org/ip', {
+$responsePut = $quickScraperClient->put('http://httpbin.org/ip', {
     body: {
         'foo': 'bar'
     }
@@ -125,7 +125,7 @@ print_r($response);
 ``` php
 $require_once './vendor/autoload.php';
 
-$QuickScraperClient = new QuickScraper\Main\QuickScraperClass('ACCESS_TOKEN');
+$quickScraperClient = new QuickScraper\Main\QuickScraperClass('ACCESS_TOKEN');
 
 $options = {
     method: 'GET',
