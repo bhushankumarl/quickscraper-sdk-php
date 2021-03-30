@@ -63,7 +63,7 @@ print_r($response);
 require_once './vendor/autoload.php';
 
 $quickScraperClient = new QuickScraper\Main\QuickScraperClass('ACCESS_TOKEN');
-$QuickScraperClient->setAccessToken('YOUR_ACCESS_TOKEN');
+$quickScraperClient->setAccessToken('YOUR_ACCESS_TOKEN');
 $response = $quickScraperClient->getHtml('http://httpbin.org/ip', {
     session_number: 'YOUR-LONG-UNIQUE-STRING'
 });
