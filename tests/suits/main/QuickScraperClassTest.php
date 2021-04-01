@@ -5,7 +5,6 @@ namespace QuickScraper\Main;
 use GuzzleHttp\Client;
 use PHPUnit\Framework\TestCase;
 use QuickScraper\Constants\Config;
-
 class QuickScraperClassTest extends TestCase
 {
 
@@ -44,89 +43,37 @@ class QuickScraperClassTest extends TestCase
     public function testGetHtml()
     {
         $object = new QuickScraperClass(Config::getAccessToken());
-        $httpClient = new Client();
-        $requestUrl = $this->prepareRequestUrl('https://google.com');
-        $headers = $this->prepareHeaders();
-        $options = array(
-            'headers'=> $headers
-        );
-        try {
-            $response = $httpClient->get($requestUrl, $options);
-            $this->assertEquals(200, $response->getStatusCode());
-        } catch (\Exception $error) {
-            $this->expectException($error);
-        }
+        $response = $object->getHtml('http://google.com');
+        $this->assertArrayHasKey('data', $response);
     }
-
     /** Just check if getting html result with dummy accesstoken */
     public function testGetHtmlWrongAccessToken()
     {
-        $url = 'http://google.com';
-        $requestUrl = 'https://rest.quickscraper.co/parse?access_token=dummy&URL='.$url;
-       
-        $httpClient = new Client();
-        $headers = $this->prepareHeaders();
-        $options = array(
-            'headers'=> $headers
-        );
         try {
-            $response = $httpClient->getAsync($requestUrl, $options)->wait();
-            $this->assertEquals(200, $response->getStatusCode());
+            $object = new QuickScraperClass('dummy');
+            $object->getHtml('http://google.com');
         } catch (\Exception $error) {
-            $this->assertEquals(403, $error->getCode());
+            $this->assertEquals(0, $error->getCode());
         }
     }
-
     /** Just check if getting html result with blank accesstoken */
     public function testGetHtmlBlankAccessToken()
     {
-        $url = 'http://google.com';
-        $requestUrl = 'https://rest.quickscraper.co/parse?access_token=&URL='.$url;
-       
-        $httpClient = new Client();
-        $headers = $this->prepareHeaders();
-        $options = array(
-            'headers'=> $headers
-        );
         try {
-            $response = $httpClient->getAsync($requestUrl, $options)->wait();
-            $this->assertEquals(200, $response->getStatusCode());
+            $object = new QuickScraperClass('');
+            $object->getHtml('http://google.com');
         } catch (\Exception $error) {
-            $this->assertEquals(403, $error->getCode());
+            $this->assertEquals(0, $error->getCode());
         }
     }
-
-    /** Just check if writeFile */
+    /** Just check if writeFile with wrong token*/
     public function testWriteFileGetHtml()
     {
-        $object = new QuickScraperClass(Config::getAccessToken());
-        $httpClient = new Client();
-        $requestUrl = $this->prepareRequestUrl('https://google.com');
-        $headers = $this->prepareHeaders();
-        $options = array(
-            'headers'=> $headers
-        );
+        $object = new QuickScraperClass('dummy');
         try {
-            $response = $object->writeHtmlToFile('http://google.com', 'test.log');
-            $this->objectHasAttribute('data');
+            $object->writeHtmlToFile('http://google.com', 'test.log');
         } catch (\Exception $error) {
-            $this->expectException($error);
+            $this->assertEquals(0, $error->getCode());
         }
-    }
-    
-    /** Just check if writeFile */
-    private function prepareRequestUrl(string $url): string
-    {
-        $object = new QuickScraperClass(Config::getAccessToken());
-
-        $requestUrl = 'https://rest.quickscraper.co/parse?access_token='.Config::getAccessToken().'&URL='.$url;
-        return $requestUrl;
-    }
-    private function prepareHeaders()
-    {
-        $headers = array(
-        'client' => 'PHP_CLIENT_LIB'
-      );
-        return $headers;
     }
 }
