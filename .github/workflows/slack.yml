@@ -1,8 +1,8 @@
 on:
-  push:
-  pull_request:
-  schedule:
-    - cron: "* */5 * * *"
+  workflow_run:
+    workflows: ["PHPUnit tests"]
+    branches: [main, develop]
+    types: [completed]
 
 name: "Slack Notification"
 
