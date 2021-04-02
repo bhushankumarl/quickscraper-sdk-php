@@ -1,6 +1,7 @@
 on:
   workflow_run:
     workflows: ["PHPUnit tests"]
+    branches: [main, develope]
     types: [completed]
 
 name: "Slack Notification"
