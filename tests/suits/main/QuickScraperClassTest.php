@@ -2,9 +2,8 @@
 
 namespace QuickScraper\Main;
 
-use GuzzleHttp\Client;
 use PHPUnit\Framework\TestCase;
-use QuickScraper\Constants\Config;
+use QuickScraper\Tests\Suits\Main\MockConfig;
 
 class QuickScraperClassTest extends TestCase
 {
@@ -20,7 +19,7 @@ class QuickScraperClassTest extends TestCase
     /** Just check if accesstoken get */
     public function testAccessToken()
     {
-        $this->assertTrue(true, Config::getAccessToken());
+        $this->assertTrue(true, MockConfig::getAccessToken());
     }
 
     /** Just check if set host is number value */
@@ -43,8 +42,8 @@ class QuickScraperClassTest extends TestCase
     /** Just check if getting html result */
     public function testGetHtml()
     {
-        $object = new QuickScraperClass(Config::getAccessToken());
-        $response = $object->getHtml('http://google.com');
+        $object = new QuickScraperClass(MockConfig::getAccessToken());
+        $response = $object->getHtml(MockConfig::sampleRequestUrl());
         $this->assertArrayHasKey('data', $response);
     }
     /** Just check if getting html result with dummy accesstoken */
@@ -52,7 +51,7 @@ class QuickScraperClassTest extends TestCase
     {
         try {
             $object = new QuickScraperClass('dummy');
-            $object->getHtml('http://google.com');
+            $object->getHtml(MockConfig::sampleRequestUrl());
         } catch (\Exception $error) {
             $this->assertEquals(0, $error->getCode());
         }
@@ -62,7 +61,7 @@ class QuickScraperClassTest extends TestCase
     {
         try {
             $object = new QuickScraperClass('');
-            $object->getHtml('http://google.com');
+            $object->getHtml(MockConfig::sampleRequestUrl());
         } catch (\Exception $error) {
             $this->assertEquals(0, $error->getCode());
         }
@@ -70,8 +69,8 @@ class QuickScraperClassTest extends TestCase
     /** Just check if writeFile with wrong token*/
     public function testWriteFileGetHtml()
     {
-        $object = new QuickScraperClass(Config::getAccessToken());
-        $response = $object->writeHtmlToFile('http://google.com', 'test.log');
+        $object = new QuickScraperClass(MockConfig::getAccessToken());
+        $response = $object->writeHtmlToFile(MockConfig::sampleRequestUrl(), 'test.log');
         $this->assertArrayHasKey('data', $response);
     }
     /** Just check if writeFile with wrong token*/
@@ -79,7 +78,7 @@ class QuickScraperClassTest extends TestCase
     {
         $object = new QuickScraperClass('dummy');
         try {
-            $object->writeHtmlToFile('http://google.com', 'test.log');
+            $object->writeHtmlToFile(MockConfig::sampleRequestUrl(), 'test.log');
         } catch (\Exception $error) {
             $this->assertEquals(0, $error->getCode());
         }
