@@ -5,6 +5,7 @@ namespace QuickScraper\Main;
 use GuzzleHttp\Client;
 use PHPUnit\Framework\TestCase;
 use QuickScraper\Constants\Config;
+
 class QuickScraperClassTest extends TestCase
 {
 
@@ -68,6 +69,13 @@ class QuickScraperClassTest extends TestCase
     }
     /** Just check if writeFile with wrong token*/
     public function testWriteFileGetHtml()
+    {
+        $object = new QuickScraperClass(Config::getAccessToken());
+        $response = $object->writeHtmlToFile('http://google.com', 'test.log');
+        $this->assertArrayHasKey('data', $response);
+    }
+    /** Just check if writeFile with wrong token*/
+    public function testWriteFileGetHtmlWrongToken()
     {
         $object = new QuickScraperClass('dummy');
         try {
