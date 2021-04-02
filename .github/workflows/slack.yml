@@ -1,8 +1,7 @@
 on:
-  push:
-  pull_request:
-  schedule:
-    - cron: "* */5 * * *"
+  workflow_run:
+    workflows: ["Build"]
+    types: [completed]
 
 name: "Slack Notification"
 
