@@ -35,7 +35,8 @@
     "autoload": {
         "psr-4": {
             "QuickScraper\\Main\\": "src/",
-            "QuickScraper\\Constants\\": "src/constants"
+            "QuickScraper\\Constants\\": "src/constants",
+            "QuickScraper\\Tests\\Suits\\Main\\": "tests/suits/main"
         }
     },
     "scripts": {

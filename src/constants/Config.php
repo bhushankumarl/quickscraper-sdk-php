@@ -4,14 +4,14 @@ namespace QuickScraper\Constants;
 
 class Config{
 
-  protected $apiUrl;
+  protected $BASE_URL;
 
   function __construct(){
-    $this->apiUrl = 'https://rest.quickscraper.co/';
+    $this->BASE_URL = 'https://rest.quickscraper.co/';
   }
   
-  public function getApiUrl(){
-    return $this->apiUrl;
+  public function getBaseUrl(){
+    return $this->BASE_URL;
   }
   public static function getAccessToken(){
     return getenv('QS_ACCESS_TOKEN');
