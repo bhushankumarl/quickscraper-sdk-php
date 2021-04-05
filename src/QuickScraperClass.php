@@ -38,6 +38,10 @@ class QuickScraperClass
         return $this->accessToken = $accessToken;
     }
 
+    
+    /**
+     * @return object
+     */
     public function getHtml(string $url)
     {
         $requestUrl = $this->prepareRequestUrl($url);
