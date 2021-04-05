@@ -51,10 +51,10 @@ class QuickScraperClass
         'verify' => false
       );
         try {
-          $httpClient = new Client();
-          $response = $httpClient->getAsync($requestUrl, $options)->wait();
+            $httpClient = new Client();
+            $response = $httpClient->getAsync($requestUrl, $options)->wait();
 
-          return array(
+            return array(
             'data'=>$response->getBody()->getContents(),
             'metadata'=> array(
               'quotaMax' => '',
@@ -64,6 +64,30 @@ class QuickScraperClass
         } catch (\Throwable $th) {
             throw new Exception($th);
         }
+    }
+    public function post(string $url, $parseOptions)
+    {
+        $response = $this->getHtml($url, $parseOptions);
+        return $response;
+    }
+  
+    public function put(string $url, $prseOptions)
+    {
+        $response = $this->getHtml($url, $prseOptions);
+        return $response;
+    }
+    
+    public function writeHtmlToFile(string $url, string $filePath)
+    {
+        $isFileExits = fopen($filePath, 'w');
+        if (!$isFileExits) {
+            throw new Exception('File does not exits.');
+        }
+        $current = file_get_contents($filePath);
+        $getHtml = $this->getHtml($url);
+        file_put_contents($filePath, $getHtml);
+        fclose($isFileExits);
+        return $getHtml;
     }
     private function prepareRequestUrl(string $url): string
     {
@@ -78,18 +102,7 @@ class QuickScraperClass
       );
         return $headers;
     }
-    public function writeHtmlToFile(string $url, string $filePath)
-    {
-        $isFileExits = fopen($filePath, 'w');
-        if (!$isFileExits) {
-            throw new Exception('File does not exits.');
-        }
-        $current = file_get_contents($filePath);
-        $getHtml = $this->getHtml($url);
-        file_put_contents($filePath, $getHtml);
-        fclose($isFileExits);
-        return $getHtml;
-    }
+    
     // Load all package from the project
     public function loadPackageFiles($dir)
     {
