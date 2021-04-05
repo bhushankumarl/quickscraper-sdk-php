@@ -93,7 +93,7 @@ class QuickScraperClass
     // Load all package from the project
     public function loadPackageFiles($dir)
     {
-        $composer = json_decode(file_get_contents('$dir/composer.json'), 1);
+        $composer = json_decode(file_get_contents($dir.'/composer.json'), 1);
         $namespaces = $composer['autoload']['psr-4'];
         // Foreach namespace specified in the composer, load the given classes
         foreach ($namespaces as $namespace => $classpaths) {
