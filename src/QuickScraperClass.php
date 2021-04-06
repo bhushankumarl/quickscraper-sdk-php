@@ -42,9 +42,9 @@ class QuickScraperClass
     /**
      * @return object
      */
-    public function getHtml(string $url)
+    public function getHtml(string $url, $paramOptions = [])
     {
-        $requestUrl = $this->prepareRequestUrl($url);
+        $requestUrl = $this->prepareRequestUrl($url,$paramOptions);
         $headers = $this->prepareHeaders();
         $options = array(
         'headers'=> $headers,
@@ -89,8 +89,25 @@ class QuickScraperClass
         fclose($isFileExits);
         return $getHtml;
     }
-    private function prepareRequestUrl(string $url): string
+    private function prepareRequestUrl(string $url, ?array $paramOptions = [])
     {
+        $urlOptions = array(
+        'access_token' => $this->accessToken,
+        'url' => $url
+      );
+        if (isset($paramOptions['premium']) && $paramOptions['premium'] === true) {
+            $urlOptions['premium'] = true;
+        }
+        if (isset($paramOptions['render']) && $paramOptions['render'] === true) {
+            $urlOptions['render'] = true;
+        }
+        if (isset($paramOptions['session_number']) && $paramOptions['session_number'] !== '') {
+            $urlOptions['session_number'] = $paramOptions['session_number'];
+        }
+        if (isset($paramOptions['country_code']) && $paramOptions['country_code'] !== '') {
+            $urlOptions['country_code'] = $paramOptions['country_code'];
+        }
+        $requestUrl = $this->parseUrl.'?'.http_build_query($urlOptions, '', '&');
         $requestUrl = $this->parseUrl.'?access_token='.$this->accessToken.'&URL='.$url;
         return $requestUrl;
     }
