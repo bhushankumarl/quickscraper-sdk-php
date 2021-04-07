@@ -42,10 +42,14 @@ class QuickScraperClass
     /**
      * @return object
      */
-    public function getHtml(string $url, $paramOptions = [])
+    public function getHtml(string $url,array $parseOptions = [])
     {
-        $requestUrl = $this->prepareRequestUrl($url,$paramOptions);
-        $headers = $this->prepareHeaders();
+        $requestUrl = $this->prepareRequestUrl($url, $parseOptions);
+        $customHeaders = null;
+        if (isset($parseOptions['headers'])) {
+            $customHeaders = $parseOptions['headers'];
+        }
+        $headers = $this->prepareHeaders($customHeaders, $parseOptions);
         $options = array(
         'headers'=> $headers,
         'verify' => false
@@ -89,34 +93,44 @@ class QuickScraperClass
         fclose($isFileExits);
         return $getHtml;
     }
-    private function prepareRequestUrl(string $url, ?array $paramOptions = [])
+    private function prepareRequestUrl(string $url, ?array $parseOptions = [])
     {
-        $urlOptions = array(
+      $urlOptions = array(
         'access_token' => $this->accessToken,
-        'url' => $url
+        'URL' => $url
       );
-        if (isset($paramOptions['premium']) && $paramOptions['premium'] === true) {
-            $urlOptions['premium'] = true;
-        }
-        if (isset($paramOptions['render']) && $paramOptions['render'] === true) {
-            $urlOptions['render'] = true;
-        }
-        if (isset($paramOptions['session_number']) && $paramOptions['session_number'] !== '') {
-            $urlOptions['session_number'] = $paramOptions['session_number'];
-        }
-        if (isset($paramOptions['country_code']) && $paramOptions['country_code'] !== '') {
-            $urlOptions['country_code'] = $paramOptions['country_code'];
-        }
+      if (isset($parseOptions['premium']) && $parseOptions['premium'] === true) {
+          $urlOptions['premium'] = true;
+      }
+      if (isset($parseOptions['render']) && $parseOptions['render'] === true) {
+          $urlOptions['render'] = true;
+      }
+      if (isset($parseOptions['session_number']) && $parseOptions['session_number'] !== '') {
+          $urlOptions['session_number'] = $parseOptions['session_number'];
+      }
+      if (isset($parseOptions['country_code']) && $parseOptions['country_code'] !== '') {
+          $urlOptions['country_code'] = $parseOptions['country_code'];
+      }
         $requestUrl = $this->parseUrl.'?'.http_build_query($urlOptions, '', '&');
-        $requestUrl = $this->parseUrl.'?access_token='.$this->accessToken.'&URL='.$url;
         return $requestUrl;
     }
-    private function prepareHeaders()
+    /**
+     * @param array|null $customHeaders
+     * @param array|null $parseOptions
+     */
+    private function prepareHeaders(array $customHeaders = null, array $parseOptions = null)
     {
         $headers = array(
         'client' => $this->DEFAULT['CLIENT'],
         'clientVersion' => $this->DEFAULT['CLIENT_VERSION']
       );
+        $mergedHeaders = null;
+        if ($customHeaders !== null) {
+            $mergedHeaders = array_merge($headers, $customHeaders);
+        }
+        if ($parseOptions !== null && $parseOptions['keep_headers'] === true) {
+            return $mergedHeaders;
+        }
         return $headers;
     }
     
