@@ -14,7 +14,7 @@ class Config
     public function getBaseUrl()
     {
         $baseUrl = getenv('QS_BASE_URL');
-        if (isset($baseUrl) && $baseUrl !== '') {
+        if ($baseUrl && $baseUrl !== '') {
             return $baseUrl;
         }
         return $this->BASE_URL;
