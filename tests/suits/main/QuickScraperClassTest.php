@@ -83,4 +83,25 @@ class QuickScraperClassTest extends TestCase
             $this->assertEquals(0, $error->getCode());
         }
     }
+    
+    /** Request should Passed with POST Options */
+    public function testPostGetHtml()
+    {
+        $object = new QuickScraperClass('dummy');
+        try {
+            $object->post(MockConfig::sampleRequestUrl());
+        } catch (\Exception $error) {
+            $this->assertEquals(0, $error->getCode());
+        }
+    }
+    /** Request should Passed with PUT Options */
+    public function testPutGetHtml()
+    {
+        $object = new QuickScraperClass('dummy');
+        try {
+            $object->put(MockConfig::sampleRequestUrl());
+        } catch (\Exception $error) {
+            $this->assertEquals(0, $error->getCode());
+        }
+    }
 }
