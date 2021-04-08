@@ -37,12 +37,11 @@ class QuickScraperClass
     {
         return $this->accessToken = $accessToken;
     }
-
     
     /**
      * @return object
      */
-    public function getHtml(string $url,array $parseOptions = [])
+    public function getHtml(string $url, array $parseOptions = [])
     {
         $requestUrl = $this->prepareRequestUrl($url, $parseOptions);
         $customHeaders = null;
@@ -95,22 +94,22 @@ class QuickScraperClass
     }
     private function prepareRequestUrl(string $url, ?array $parseOptions = [])
     {
-      $urlOptions = array(
+        $urlOptions = array(
         'access_token' => $this->accessToken,
         'URL' => $url
       );
-      if (isset($parseOptions['premium']) && $parseOptions['premium'] === true) {
-          $urlOptions['premium'] = true;
-      }
-      if (isset($parseOptions['render']) && $parseOptions['render'] === true) {
-          $urlOptions['render'] = true;
-      }
-      if (isset($parseOptions['session_number']) && $parseOptions['session_number'] !== '') {
-          $urlOptions['session_number'] = $parseOptions['session_number'];
-      }
-      if (isset($parseOptions['country_code']) && $parseOptions['country_code'] !== '') {
-          $urlOptions['country_code'] = $parseOptions['country_code'];
-      }
+        if (isset($parseOptions['premium']) && $parseOptions['premium'] === true) {
+            $urlOptions['premium'] = true;
+        }
+        if (isset($parseOptions['render']) && $parseOptions['render'] === true) {
+            $urlOptions['render'] = true;
+        }
+        if (isset($parseOptions['session_number']) && $parseOptions['session_number'] !== '') {
+            $urlOptions['session_number'] = $parseOptions['session_number'];
+        }
+        if (isset($parseOptions['country_code']) && $parseOptions['country_code'] !== '') {
+            $urlOptions['country_code'] = $parseOptions['country_code'];
+        }
         $requestUrl = $this->parseUrl.'?'.http_build_query($urlOptions, '', '&');
         return $requestUrl;
     }
@@ -128,9 +127,9 @@ class QuickScraperClass
         if ($customHeaders !== null) {
             $mergedHeaders = array_merge($headers, $customHeaders);
         }
-        if ($parseOptions !== null && $parseOptions['keep_headers'] === true) {
-            return $mergedHeaders;
-        }
+        if ($parseOptions !== null && isset($parseOptions['keep_headers']) && $parseOptions['keep_headers'] === true) {
+          return $mergedHeaders;
+      }
         return $headers;
     }
     

@@ -2,21 +2,25 @@
 
 namespace QuickScraper\Constants;
 
-class Config{
+class Config
+{
+    protected $BASE_URL;
 
-  protected $BASE_URL;
-
-  function __construct(){
-    $this->BASE_URL = 'https://rest.quickscraper.co/';
-  }
+    public function __construct()
+    {
+        $this->BASE_URL = 'https://rest.quickscraper.co/';
+    }
   
-  public function getBaseUrl(){
-    return $this->BASE_URL;
-  }
-  public static function getAccessToken(){
-    return getenv('QS_ACCESS_TOKEN');
-  }
-  
-
+    public function getBaseUrl()
+    {
+        $baseUrl = getenv('QS_BASE_URL');
+        if (isset($baseUrl) && $baseUrl !== '') {
+            return $baseUrl;
+        }
+        return $this->BASE_URL;
+    }
+    public static function getAccessToken()
+    {
+        return getenv('QS_ACCESS_TOKEN');
+    }
 }
-?>
