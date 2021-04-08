@@ -68,15 +68,15 @@ class QuickScraperClass
             throw new Exception($th);
         }
     }
-    public function post(string $url, $parseOptions)
+    public function post(string $url, array $parseOptions = [])
     {
         $response = $this->getHtml($url, $parseOptions);
         return $response;
     }
   
-    public function put(string $url, $prseOptions)
+    public function put(string $url, array $parseOptions = [])
     {
-        $response = $this->getHtml($url, $prseOptions);
+        $response = $this->getHtml($url, $parseOptions);
         return $response;
     }
     
@@ -92,7 +92,7 @@ class QuickScraperClass
         fclose($isFileExits);
         return $getHtml;
     }
-    private function prepareRequestUrl(string $url, ?array $parseOptions = [])
+    private function prepareRequestUrl(string $url, array $parseOptions = [])
     {
         $urlOptions = array(
         'access_token' => $this->accessToken,
