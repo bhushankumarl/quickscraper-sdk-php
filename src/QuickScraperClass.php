@@ -88,7 +88,7 @@ class QuickScraperClass
         }
         $current = file_get_contents($filePath);
         $getHtml = $this->getHtml($url);
-        file_put_contents($filePath, $getHtml);
+        file_put_contents($filePath, $getHtml['data']);
         fclose($isFileExits);
         return $getHtml;
     }
