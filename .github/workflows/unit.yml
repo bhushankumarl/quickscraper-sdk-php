@@ -5,16 +5,16 @@ on:
   pull_request:
   schedule:
     - cron: "0 */5 * * *"
-
+env:
+  QS_ACCESS_TOKEN: ${{ secrets.QS_ACCESS_TOKEN }}
+  QS_BASE_URL: ${{ secrets.QS_BASE_URL }}
+  DEBUG: "QS:*"
+  
 jobs:
   phpunit:
     name: "PHPUnit tests"
 
     runs-on: ${{ matrix.operating-system }}
-
-    env:
-      QS_ACCESS_TOKEN: ${{ secrets.QS_ACCESS_TOKEN }}
-      DEBUG: "QS:*"
 
     strategy:
       matrix:
