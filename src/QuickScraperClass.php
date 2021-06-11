@@ -11,9 +11,9 @@ class QuickScraperClass
     private $accessToken = '';
     private $parseUrl;
     private $DEFAULT = array(
-      'CLIENT' =>'PHP_CLIENT_LIB',
+      'Client' =>'PHP_CLIENT_LIB',
       'HOST' => '',
-      'CLIENT_VERSION' => '1.0.0'
+      'Client-Version' => '1.0.3'
     );
     
     public function __construct(string $accessToken)
@@ -37,7 +37,6 @@ class QuickScraperClass
     {
         return $this->accessToken = $accessToken;
     }
-    
     /**
      * @return object
      */
@@ -65,7 +64,7 @@ class QuickScraperClass
             ),
           );
         } catch (\Throwable $th) {
-            throw new Exception($th);
+            throw new Exception($th, 530);
         }
     }
     public function post(string $url, array $parseOptions = [])
@@ -109,6 +108,9 @@ class QuickScraperClass
         }
         if (isset($parseOptions['country_code']) && $parseOptions['country_code'] !== '') {
             $urlOptions['country_code'] = $parseOptions['country_code'];
+        }
+        if (isset($parseOptions['keep_headers']) && $parseOptions['keep_headers'] !== '') {
+            $urlOptions['keep_headers'] = $parseOptions['keep_headers'];
         }
         $requestUrl = $this->parseUrl.'?'.http_build_query($urlOptions, '', '&');
         return $requestUrl;
