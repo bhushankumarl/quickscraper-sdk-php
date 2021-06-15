@@ -12,4 +12,8 @@ class MockConfig
     {
         return getenv('QS_ACCESS_TOKEN');
     }
+    public static function getConcurrentCount()
+    {
+        return getenv('CONCURRENT_COUNT') || 50;
+    }
 }
