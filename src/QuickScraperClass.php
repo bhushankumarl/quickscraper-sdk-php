@@ -69,8 +69,8 @@ class QuickScraperClass
       $responseError = json_decode((string) $response->getBody());
       if ($responseError->message && $responseError->statusCode) {
         $errorBody = $response->getBody();
-        $message = $responseError->message || 'Failed to process request';
-        $statusCode =  $responseError->statusCode || 530;
+        $message = $responseError->message? $responseError->message : 'Failed to process request';
+        $statusCode =  $responseError->statusCode ? $responseError->statusCode : 530;
         throw new QsError($message, $statusCode);
       }
       $message = 'Failed to process request';
