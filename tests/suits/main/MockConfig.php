@@ -14,6 +14,6 @@ class MockConfig
     }
     public static function getConcurrentCount()
     {
-        return getenv('CONCURRENT_COUNT') || 50;
+        return  getenv('CONCURRENT_COUNT') ? getenv('CONCURRENT_COUNT') : 50;;
     }
 }
