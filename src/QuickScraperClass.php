@@ -136,8 +136,8 @@ class QuickScraperClass
   private function prepareHeaders(array $customHeaders = null, array $parseOptions = null)
   {
     $headers = array(
-      'client' => $this->DEFAULT['CLIENT'],
-      'clientVersion' => $this->DEFAULT['CLIENT_VERSION']
+      'Client' => $this->DEFAULT['Client'],
+      'Client-Version' => $this->DEFAULT['Client-Version']
     );
     $mergedHeaders = null;
     if ($customHeaders !== null) {
