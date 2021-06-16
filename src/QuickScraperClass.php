@@ -2,11 +2,9 @@
 
 namespace QuickScraper\Main;
 
-use Exception;
 use QuickScraper\Constants\Config;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
-use QuickScraper\Main\QsError;
 
 class QuickScraperClass
 {
@@ -68,15 +66,16 @@ class QuickScraperClass
       $response = $exception->getResponse();
       $responseError = json_decode((string) $response->getBody());
       if ($responseError->message && $responseError->statusCode) {
-        $errorBody = $response->getBody();
-        $message = $responseError->message? $responseError->message : 'Failed to process request';
         $statusCode =  $responseError->statusCode ? $responseError->statusCode : 530;
-        throw new QsError($message, $statusCode);
+        http_response_code($statusCode);
+        return json_encode($responseError);
       }
+      $statusCode = 530;
       $message = 'Failed to process request';
       $type = 'UNKNOWN';
-      $statusCode = 530;
-      throw new QsError($message, $statusCode);
+      $throwError = array('message' => $message,'status' => $statusCode);
+      http_response_code($statusCode);
+      return json_encode($throwError);
     }
   }
   public function post(string $url, array $parseOptions = [])
@@ -97,7 +96,9 @@ class QuickScraperClass
     if (!$isFileExits) {
       $message = 'File does not exits.';
       $statusCode = 400;
-      throw new QsError($message, $statusCode);
+      $throwError = array('message' => $message,'status' => $statusCode);
+      http_response_code($statusCode);
+      return json_encode($throwError);
     }
     $current = file_get_contents($filePath);
     $getHtml = $this->getHtml($url);
