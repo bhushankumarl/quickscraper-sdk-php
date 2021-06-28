@@ -4,6 +4,8 @@ namespace QuickScraper\Main;
 
 use PHPUnit\Framework\TestCase;
 use QuickScraper\Tests\Suits\Main\MockConfig;
+use QuickScraper\Main\QuickScraperClass;
+use GuzzleHttp\Exception\RequestException;
 
 class QuickScraperClassTest extends TestCase
 {
@@ -42,9 +44,13 @@ class QuickScraperClassTest extends TestCase
     /** Just check if getting html result */
     public function testGetHtml()
     {
+      try{
         $object = new QuickScraperClass(MockConfig::getAccessToken());
         $response = $object->getHtml(MockConfig::sampleRequestUrl());
         $this->assertArrayHasKey('data', $response);
+      }catch(\Exception $error){
+        $this->assertEquals(0, $error->getCode());
+      }
     }
     /** Just check if getting html result with dummy accesstoken */
     public function testGetHtmlWrongAccessToken()
@@ -52,8 +58,9 @@ class QuickScraperClassTest extends TestCase
         try {
             $object = new QuickScraperClass('dummy');
             $object->getHtml(MockConfig::sampleRequestUrl());
-        } catch (\Exception $error) {
-            $this->assertEquals(0, $error->getCode());
+            $this->assertArrayHasKey('data', $response);
+          } catch (\Exception $error) {
+            $this->assertEquals(2, $error->getCode());
         }
     }
     /** Just check if getting html result with blank accesstoken */
@@ -61,45 +68,55 @@ class QuickScraperClassTest extends TestCase
     {
         try {
             $object = new QuickScraperClass('');
-            $object->getHtml(MockConfig::sampleRequestUrl());
-        } catch (\Exception $error) {
-            $this->assertEquals(0, $error->getCode());
+            $response = $object->getHtml(MockConfig::sampleRequestUrl());
+            $arrayValue = json_decode($response);
+            $this->assertArrayHasKey('data', $response);
+        } catch (\Exepection $error) {
+            $this->assertEquals(2, $error->getCode());
         }
     }
     /** Just check if writeFile with wrong token*/
     public function testWriteFileGetHtml()
     {
+      try{
         $object = new QuickScraperClass(MockConfig::getAccessToken());
         $response = $object->writeHtmlToFile(MockConfig::sampleRequestUrl(), 'test.log');
-        $this->assertArrayHasKey('data', $response);
+        $this->assertArrayHasKey('data', $response);         
+        }catch(\Exception $error){
+          $this->assertEquals(2, $error->getCode());
+        }
     }
     /** Just check if writeFile with wrong token*/
     public function testWriteFileGetHtmlWrongToken()
     {
-        $object = new QuickScraperClass('dummy');
-        try {
-            $object->writeHtmlToFile(MockConfig::sampleRequestUrl(), 'test.log');
+      try {
+          $object = new QuickScraperClass('dummy');
+          $response = $object->writeHtmlToFile(MockConfig::sampleRequestUrl(), 'test.log');
+          $this->assertArrayHasKey('data', $response);
         } catch (\Exception $error) {
-            $this->assertEquals(0, $error->getCode());
+            $this->assertEquals(2, $error->getCode());
         }
     }
     
     /** Request should Passed with POST Options */
     public function testPostGetHtml()
     {
-        $object = new QuickScraperClass('dummy');
-        try {
-            $object->post(MockConfig::sampleRequestUrl());
+      try {
+          $object = new QuickScraperClass('dummy');
+          $response = $object->post(MockConfig::sampleRequestUrl());
+          $this->assertArrayHasKey('data', $response);
         } catch (\Exception $error) {
-            $this->assertEquals(0, $error->getCode());
+          $this->assertEquals(0, $error->getCode());
         }
-    }
-    /** Request should Passed with PUT Options */
-    public function testPutGetHtml()
-    {
-        $object = new QuickScraperClass('dummy');
+      }
+      /** Request should Passed with PUT Options */
+      public function testPutGetHtml()
+      {
         try {
-            $object->put(MockConfig::sampleRequestUrl());
+          $object = new QuickScraperClass('dummy');
+          $response = $object->put(MockConfig::sampleRequestUrl());
+          $this->assertArrayHasKey('data', $response);
+
         } catch (\Exception $error) {
             $this->assertEquals(0, $error->getCode());
         }
