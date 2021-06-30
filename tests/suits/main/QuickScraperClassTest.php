@@ -184,4 +184,80 @@ class QuickScraperClassTest extends TestCase
       $this->assertEquals(0, $error->getCode());
     }
   }
+  
+  /**
+   *---------------------------------------------------------
+   * Import : Request should be Passed with IN Location
+   *---------------------------------------------------------
+   */
+  public function testINLocation(){
+    $requestUrl = (new MockConfig)->SAMPLE_REQUEST_URL_COUNTRY;
+    $QuickScraperClient = new QuickScraperClass(MockConfig::getAccessToken());
+     try {
+       $options = array(
+         'country_code' => 'IN'
+       );
+       $response = $QuickScraperClient->getHtml($requestUrl, $options);
+ 
+     } catch (\Exception $error) {
+       $this->assertEquals(0, $error->getCode());
+     }
+   }
+ 
+   /**
+    *---------------------------------------------------------
+    * Import : Request should be Passed with Premium Proxy
+    *---------------------------------------------------------
+    */
+   public function testPremiumProxy(){
+    $requestUrl = (new MockConfig)->SAMPLE_REQUEST_URL_1;
+    $QuickScraperClient = new QuickScraperClass(MockConfig::getAccessToken());
+     try {
+       $options = array(
+         'premium' => true
+       );
+       $response = $QuickScraperClient->getHtml($requestUrl, $options);
+ 
+     } catch (\Exception $error) {
+       $this->assertEquals(0, $error->getCode());
+     }
+   }
+ 
+   /**
+    *---------------------------------------------------------
+    * Import : Request should be Passed with POST Options
+    *---------------------------------------------------------
+    */
+   public function testPOSTOptions(){
+    $requestUrl = (new MockConfig)->SAMPLE_REQUEST_URL_COUNTRY;
+    $QuickScraperClient = new QuickScraperClass(MockConfig::getAccessToken());
+     try {
+       $options = array(
+         'premium' => true
+       );
+       $response = $QuickScraperClient->getHtml($requestUrl, $options);
+ 
+     } catch (\Exception $error) {
+       $this->assertEquals(0, $error->getCode());
+     }
+   }
+ 
+   /**
+    *---------------------------------------------------------
+    * Import : Request should be Passed with PUT Options
+    *---------------------------------------------------------
+    */
+   public function testPUTOptions(){
+    $requestUrl = (new MockConfig)->SAMPLE_REQUEST_URL_1;
+    $QuickScraperClient = new QuickScraperClass(MockConfig::getAccessToken());
+     try {
+       $options = array(
+         'premium' => true
+       );
+       $response = $QuickScraperClient->getHtml($requestUrl, $options);
+ 
+     } catch (\Exception $error) {
+       $this->assertEquals(0, $error->getCode());
+     }
+   }
 }
