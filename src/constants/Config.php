@@ -8,7 +8,7 @@ class Config
 
     public function __construct()
     {
-        $this->BASE_URL = 'https://rest.quickscraper.co/';
+        $this->BASE_URL = 'https://dev-rest.quickscraper.co/';
     }
   
     public function getBaseUrl()

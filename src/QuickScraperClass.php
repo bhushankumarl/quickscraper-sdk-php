@@ -37,8 +37,9 @@ class QuickScraperClass
   {
     return $this->accessToken = $accessToken;
   }
+  
   /**
-   * @return object
+   * @return mixed
    */
   public function getHtml(string $url, array $parseOptions = [])
   {
@@ -55,14 +56,15 @@ class QuickScraperClass
     try {
       $httpClient = new Client();
       $response = $httpClient->getAsync($requestUrl, $gotOptions)->wait();
-      return array(
+      $responseObject =  (Object) array(
         'data' => $response->getBody()->getContents(),
         'metadata' => array(
           'quotaMax' => '',
           'quotaRemaining' => '',
         ),
       );
-    } catch (RequestException $exception) {
+      return json_encode($responseObject);
+    } catch (RequestException  $exception) {
       $response = $exception->getResponse();
       $responseError = json_decode((string) $response->getBody());
       if ($responseError->message && $responseError->statusCode) {
@@ -73,7 +75,7 @@ class QuickScraperClass
       $statusCode = 530;
       $message = 'Failed to process request';
       $type = 'UNKNOWN';
-      $throwError = array('message' => $message,'status' => $statusCode);
+      $throwError = array('message' => $message, 'status' => $statusCode);
       http_response_code($statusCode);
       return json_encode($throwError);
     }
@@ -96,13 +98,16 @@ class QuickScraperClass
     if (!$isFileExits) {
       $message = 'File does not exits.';
       $statusCode = 400;
-      $throwError = array('message' => $message,'status' => $statusCode);
+      $throwError = array('message' => $message, 'status' => $statusCode);
       http_response_code($statusCode);
       return json_encode($throwError);
     }
     $current = file_get_contents($filePath);
     $getHtml = $this->getHtml($url);
-    file_put_contents($filePath, $getHtml['data']);
+    $extractJson = json_decode($getHtml);
+    if(property_exists($extractJson,'data')){
+      file_put_contents($filePath, $extractJson->data);
+    }
     fclose($isFileExits);
     return $getHtml;
   }
