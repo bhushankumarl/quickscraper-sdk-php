@@ -118,10 +118,10 @@ class QuickScraperClass
       'URL' => $url
     );
     if (isset($parseOptions['premium']) && $parseOptions['premium'] === true) {
-      $urlOptions['premium'] = true;
+      $urlOptions['premium'] = 'true';
     }
     if (isset($parseOptions['render']) && $parseOptions['render'] === true) {
-      $urlOptions['render'] = true;
+      $urlOptions['render'] = 'true';
     }
     if (isset($parseOptions['session_number']) && $parseOptions['session_number'] !== '') {
       $urlOptions['session_number'] = $parseOptions['session_number'];
