@@ -6,6 +6,7 @@ use QuickScraper\Constants\Config;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
 
+
 class QuickScraperClass
 {
   private $accessToken = '';
@@ -37,7 +38,6 @@ class QuickScraperClass
   {
     return $this->accessToken = $accessToken;
   }
-  
   /**
    * @return mixed
    */
@@ -63,7 +63,7 @@ class QuickScraperClass
           'quotaRemaining' => '',
         ),
       );
-      return json_encode($responseObject);
+      return json_encode($responseObject, JSON_HEX_TAG);
     } catch (RequestException  $exception) {
       $response = $exception->getResponse();
       $responseError = json_decode((string) $response->getBody());
