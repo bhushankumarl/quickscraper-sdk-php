@@ -83,8 +83,8 @@ class QuickScraperClassTest extends TestCase
       $object = new QuickScraperClass(MockConfig::getAccessToken());
       $response = $object->writeHtmlToFile(MockConfig::sampleRequestUrl(), 'test.log');
       $responseArray = json_decode($response);
-      $this->assertObjectHasAttribute('message', $responseArray);
-      $this->assertObjectNotHasAttribute('data', $responseArray);
+      $this->assertObjectHasAttribute('data', $responseArray);
+      $this->assertObjectNotHasAttribute('message', $responseArray);
     } catch (\Exception  $error) {
       $this->expectException($error);
     }
@@ -142,8 +142,8 @@ class QuickScraperClassTest extends TestCase
       $options = array('render' => true);
       $response = $object->getHtml($requestUrl, $options);
       $responseArray = json_decode($response);
-      $this->assertObjectHasAttribute('message', $responseArray);
-      $this->assertObjectNotHasAttribute('data', $responseArray);
+      $this->assertObjectNotHasAttribute('message', $responseArray);
+      $this->assertObjectHasAttribute('data', $responseArray);
     } catch (\Exception  $error) {
       $this->expectException($error);
     }
@@ -169,8 +169,8 @@ class QuickScraperClassTest extends TestCase
       );
       $response = $QuickScraperClient->getHtml($requestUrl, $options);
       $responseArray = json_decode($response);
-      $this->assertObjectHasAttribute('message', $responseArray);
-      $this->assertObjectNotHasAttribute('data', $responseArray);
+      $this->assertObjectNotHasAttribute('message', $responseArray);
+      $this->assertObjectHasAttribute('data', $responseArray);
     } catch (\Exception  $error) {
       $this->expectException($error);
     }
@@ -193,8 +193,8 @@ class QuickScraperClassTest extends TestCase
       );
       $response = $QuickScraperClient->getHtml($requestUrl, $options);
       $responseArray = json_decode($response);
-      $this->assertObjectHasAttribute('message', $responseArray);
-      $this->assertObjectNotHasAttribute('data', $responseArray);
+      $this->assertObjectNotHasAttribute('message', $responseArray);
+      $this->assertObjectHasAttribute('data', $responseArray);
     } catch (\Exception  $error) {
       $this->expectException($error);
     }
@@ -215,8 +215,8 @@ class QuickScraperClassTest extends TestCase
       );
       $response = $QuickScraperClient->getHtml($requestUrl, $options);
       $responseArray = json_decode($response);
-      $this->assertObjectHasAttribute('message', $responseArray);
-      $this->assertObjectNotHasAttribute('data', $responseArray);
+      $this->assertObjectNotHasAttribute('message', $responseArray);
+      $this->assertObjectHasAttribute('data', $responseArray);
     } catch (\Exception  $error) {
       $this->expectException($error);
     }
@@ -237,8 +237,8 @@ class QuickScraperClassTest extends TestCase
       );
       $response = $QuickScraperClient->getHtml($requestUrl, $options);
       $responseArray = json_decode($response);
-      $this->assertObjectHasAttribute('message', $responseArray);
-      $this->assertObjectNotHasAttribute('data', $responseArray);
+      $this->assertObjectNotHasAttribute('message', $responseArray);
+      $this->assertObjectHasAttribute('data', $responseArray);
     } catch (\Exception  $error) {
       $this->expectException($error);
     }
@@ -259,8 +259,8 @@ class QuickScraperClassTest extends TestCase
       );
       $response = $QuickScraperClient->getHtml($requestUrl, $options);
       $responseArray = json_decode($response);
-      $this->assertObjectHasAttribute('message', $responseArray);
-      $this->assertObjectNotHasAttribute('data', $responseArray);
+      $this->assertObjectNotHasAttribute('message', $responseArray);
+      $this->assertObjectHasAttribute('data', $responseArray);
     } catch (\Exception  $error) {
       $this->expectException($error);
     }
@@ -281,8 +281,8 @@ class QuickScraperClassTest extends TestCase
       );
       $response = $QuickScraperClient->getHtml($requestUrl, $options);
       $responseArray = json_decode($response);
-      $this->assertObjectHasAttribute('message', $responseArray);
-      $this->assertObjectNotHasAttribute('data', $responseArray);
+      $this->assertObjectNotHasAttribute('message', $responseArray);
+      $this->assertObjectHasAttribute('data', $responseArray);
     } catch (\Exception  $error) {
       $this->expectException($error);
     }
