@@ -49,6 +49,7 @@ class QuickScraperClassTest extends TestCase
       $responseArray = json_decode($response);
       $this->assertObjectNotHasAttribute('message', $responseArray);
       $this->assertObjectHasAttribute('data', $responseArray);
+      $this->assertNotNull($responseArray);
     } catch (\Exception $error) {
       $this->expectException($error);
     }
@@ -62,11 +63,12 @@ class QuickScraperClassTest extends TestCase
       $responseArray = json_decode($response);
       $this->assertObjectNotHasAttribute('data', $responseArray);
       $this->assertObjectHasAttribute('message', $responseArray);
-    } catch (\Exception $error) {
+      $this->assertNotNull($responseArray);
+    } catch (\Exception  $error) {
+      $this->assertNotNull($error);
       $this->expectException($error);
     }
   }
-
   /** Just check if getting html result with blank accesstoken */
   public function testGetHtmlBlankAccessToken()
   {
@@ -77,7 +79,9 @@ class QuickScraperClassTest extends TestCase
       $responseArray = json_decode($response);
       $this->assertObjectHasAttribute('message', $responseArray);
       $this->assertObjectNotHasAttribute('data', $responseArray);
+      $this->assertNotNull($responseArray);
     } catch (\Exception  $error) {
+      $this->assertNotNull($error);
       $this->expectException($error);
     }
   }
@@ -90,7 +94,9 @@ class QuickScraperClassTest extends TestCase
       $responseArray = json_decode($response);
       $this->assertObjectHasAttribute('data', $responseArray);
       $this->assertObjectNotHasAttribute('message', $responseArray);
+      $this->assertNotNull($responseArray);
     } catch (\Exception  $error) {
+      $this->assertNotNull($error);
       $this->expectException($error);
     }
   }
@@ -103,7 +109,9 @@ class QuickScraperClassTest extends TestCase
       $responseArray = json_decode($response);
       $this->assertObjectHasAttribute('message', $responseArray);
       $this->assertObjectNotHasAttribute('data', $responseArray);
+      $this->assertNotNull($responseArray);
     } catch (\Exception  $error) {
+      $this->assertNotNull($error);
       $this->expectException($error);
     }
   }
@@ -117,7 +125,9 @@ class QuickScraperClassTest extends TestCase
       $responseArray = json_decode($response);
       $this->assertObjectHasAttribute('message', $responseArray);
       $this->assertObjectNotHasAttribute('data', $responseArray);
+       $this->assertNotNull($responseArray);
     } catch (\Exception  $error) {
+      $this->assertNotNull($error);
       $this->expectException($error);
     }
   }
@@ -130,7 +140,9 @@ class QuickScraperClassTest extends TestCase
       $responseArray = json_decode($response);
       $this->assertObjectHasAttribute('message', $responseArray);
       $this->assertObjectNotHasAttribute('data', $responseArray);
+       $this->assertNotNull($responseArray);
     } catch (\Exception  $error) {
+      $this->assertNotNull($error);
       $this->expectException($error);
     }
   }
@@ -149,7 +161,9 @@ class QuickScraperClassTest extends TestCase
       $responseArray = json_decode($response);
       $this->assertObjectNotHasAttribute('message', $responseArray);
       $this->assertObjectHasAttribute('data', $responseArray);
+      $this->assertNotNull($responseArray);
     } catch (\Exception  $error) {
+      $this->assertNotNull($error);
       $this->expectException($error);
     }
   }
@@ -176,7 +190,9 @@ class QuickScraperClassTest extends TestCase
       $responseArray = json_decode($response);
       $this->assertObjectNotHasAttribute('message', $responseArray);
       $this->assertObjectHasAttribute('data', $responseArray);
+      $this->assertNotNull($responseArray);
     } catch (\Exception  $error) {
+      $this->assertNotNull($error);
       $this->expectException($error);
     }
   }
@@ -200,7 +216,9 @@ class QuickScraperClassTest extends TestCase
       $responseArray = json_decode($response);
       $this->assertObjectNotHasAttribute('message', $responseArray);
       $this->assertObjectHasAttribute('data', $responseArray);
+      $this->assertNotNull($responseArray);
     } catch (\Exception  $error) {
+      $this->assertNotNull($error);
       $this->expectException($error);
     }
   }
@@ -222,7 +240,9 @@ class QuickScraperClassTest extends TestCase
       $responseArray = json_decode($response);
       $this->assertObjectNotHasAttribute('message', $responseArray);
       $this->assertObjectHasAttribute('data', $responseArray);
-    } catch (\Exception  $error) {
+      $this->assertNotNull($responseArray);
+  } catch (\Exception  $error) {
+    $this->assertNotNull($error);
       $this->expectException($error);
     }
   }
@@ -244,7 +264,9 @@ class QuickScraperClassTest extends TestCase
       $responseArray = json_decode($response);
       $this->assertObjectNotHasAttribute('message', $responseArray);
       $this->assertObjectHasAttribute('data', $responseArray);
+      $this->assertNotNull($responseArray);
     } catch (\Exception  $error) {
+      $this->assertNotNull($error);
       $this->expectException($error);
     }
   }
@@ -266,7 +288,9 @@ class QuickScraperClassTest extends TestCase
       $responseArray = json_decode($response);
       $this->assertObjectNotHasAttribute('message', $responseArray);
       $this->assertObjectHasAttribute('data', $responseArray);
+      $this->assertNotNull($responseArray);
     } catch (\Exception  $error) {
+      $this->assertNotNull($error);
       $this->expectException($error);
     }
   }
@@ -288,7 +312,9 @@ class QuickScraperClassTest extends TestCase
       $responseArray = json_decode($response);
       $this->assertObjectNotHasAttribute('message', $responseArray);
       $this->assertObjectHasAttribute('data', $responseArray);
+      $this->assertNotNull($responseArray);
     } catch (\Exception  $error) {
+      $this->assertNotNull($error);
       $this->expectException($error);
     }
   }
