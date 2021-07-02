@@ -46,9 +46,11 @@ class QuickScraperClassTest extends TestCase
     try {
       $object = new QuickScraperClass(MockConfig::getAccessToken());
       $response = $object->getHtml(MockConfig::sampleRequestUrl());
-      $this->assertObjectHasAttribute('data', $response);
+      $responseArray = json_decode($response);
+      $this->assertObjectNotHasAttribute('message', $responseArray);
+      $this->assertObjectHasAttribute('data', $responseArray);
     } catch (\Exception $error) {
-      $this->assertObjectHasAttribute('message', $error);
+      $this->expectException($error);
     }
   }
   /** Just check if getting html result with dummy accesstoken */
@@ -57,11 +59,14 @@ class QuickScraperClassTest extends TestCase
     try {
       $object = new QuickScraperClass('dummy');
       $response = $object->getHtml(MockConfig::sampleRequestUrl());
-      $this->assertObjectHasAttribute('data', $response);
+      $responseArray = json_decode($response);
+      $this->assertObjectNotHasAttribute('data', $responseArray);
+      $this->assertObjectHasAttribute('message', $responseArray);
     } catch (\Exception $error) {
-      $this->assertObjectHasAttribute('message', $error);
+      $this->expectException($error);
     }
   }
+
   /** Just check if getting html result with blank accesstoken */
   public function testGetHtmlBlankAccessToken()
   {
