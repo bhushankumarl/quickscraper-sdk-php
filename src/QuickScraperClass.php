@@ -59,11 +59,13 @@ class QuickScraperClass
     try {
       $httpClient = new Client();
       $response = $httpClient->getAsync($requestUrl, $gotOptions)->wait();
+      $quotaMax = $response->getHeaders()['x-qs-quota-max'];
+      $quotaRemainig = $response->getHeaders()['x-qs-quota-remaining'];
       $responseObject =  (Object) array(
         'data' => $response->getBody()->getContents(),
         'metadata' => array(
-          'quotaMax' => '',
-          'quotaRemaining' => '',
+          'quotaMax' => $quotaMax,
+          'quotaRemaining' => $quotaRemainig,
         ),
       );
       return json_encode($responseObject, JSON_HEX_TAG);
