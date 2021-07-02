@@ -25,7 +25,7 @@ class ParseConCurrentTest extends TestCase
 				$responseArray = json_decode($promisesGetHtml);
 				array_push($promises, $responseArray);
 				$this->assertObjectHasAttribute('data', $responseArray);
-				$this->assertObjectNotHasAttribute('message', $responseArray);;
+				$this->assertObjectNotHasAttribute('message', $responseArray);
         $this->assertNotNull($responseArray);
 			}
 			$this->assertNotEmpty($promises);

@@ -17,7 +17,10 @@ class QuickScraperClass
     'Client-Version' => '1.0.3'
   );
 
-  public function __construct(string $accessToken)
+  /**
+   * @param string $accessToken
+   */
+  public function __construct($accessToken = '')
   {
     $this->loadPackageFiles(__DIR__ . '/../');
     $this->DEFAULT['HOST'] = (new Config)->getBaseUrl();
