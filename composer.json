@@ -19,7 +19,7 @@
     ],
     "require": {
         "php": "^7.0",
-        "guzzlehttp/guzzle": "7.0"
+        "guzzlehttp/guzzle": "6.5.5"
     },
     "extra": {
       "extra": {
@@ -27,9 +27,6 @@
       }
     },
     "require-dev": {
-        "squizlabs/php_codesniffer": "^3.0",
-        "phpmd/phpmd": "^2.6",
-        "phpdocumentor/phpdocumentor": "^2.0",
         "phpunit/phpunit": "8.5.x-dev"
     },
     "autoload": {
@@ -42,15 +39,6 @@
     "scripts": {
         "test": [
             "@php vendor/bin/phpunit"
-        ],
-        "psr2check": [
-            "@php vendor/bin/phpcs --standard=PSR2 src/"
-        ],
-        "psr2autofix": [
-            "@php vendor/bin/phpcbf --standard=PSR2 src/"
-        ],
-        "docs": [
-            "@php vendor/bin/phpdoc -d \"src\" -t \"docs\""
         ]
     }
 }

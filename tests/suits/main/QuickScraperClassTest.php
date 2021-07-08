@@ -51,7 +51,7 @@ class QuickScraperClassTest extends TestCase
       $this->assertObjectHasAttribute('data', $responseArray);
       $this->assertNotNull($responseArray);
     } catch (\Exception $error) {
-      $this->expectException($error);
+      $this->expectException($error->getMessage());
     }
   }
   /** Just check if getting html result with dummy accesstoken */
@@ -66,7 +66,7 @@ class QuickScraperClassTest extends TestCase
       $this->assertNotNull($responseArray);
     } catch (\Exception  $error) {
       $this->assertNotNull($error);
-      $this->expectException($error);
+      $this->expectException($error->getMessage());
     }
   }
   /** Just check if getting html result with blank accesstoken */
@@ -82,7 +82,7 @@ class QuickScraperClassTest extends TestCase
       $this->assertNotNull($responseArray);
     } catch (\Exception  $error) {
       $this->assertNotNull($error);
-      $this->expectException($error);
+      $this->expectException($error->getMessage());
     }
   }
   /** Just check if writeFile with wrong token*/
@@ -97,7 +97,7 @@ class QuickScraperClassTest extends TestCase
       $this->assertNotNull($responseArray);
     } catch (\Exception  $error) {
       $this->assertNotNull($error);
-      $this->expectException($error);
+      $this->expectException($error->getMessage());
     }
   }
   /** Just check if writeFile with wrong token*/
@@ -112,7 +112,7 @@ class QuickScraperClassTest extends TestCase
       $this->assertNotNull($responseArray);
     } catch (\Exception  $error) {
       $this->assertNotNull($error);
-      $this->expectException($error);
+      $this->expectException($error->getMessage());
     }
   }
 
@@ -128,7 +128,7 @@ class QuickScraperClassTest extends TestCase
        $this->assertNotNull($responseArray);
     } catch (\Exception  $error) {
       $this->assertNotNull($error);
-      $this->expectException($error);
+      $this->expectException($error->getMessage());
     }
   }
   /** Request should Passed with PUT Options */
@@ -143,7 +143,7 @@ class QuickScraperClassTest extends TestCase
        $this->assertNotNull($responseArray);
     } catch (\Exception  $error) {
       $this->assertNotNull($error);
-      $this->expectException($error);
+      $this->expectException($error->getMessage());
     }
   }
   /**
@@ -164,7 +164,7 @@ class QuickScraperClassTest extends TestCase
       $this->assertNotNull($responseArray);
     } catch (\Exception  $error) {
       $this->assertNotNull($error);
-      $this->expectException($error);
+      $this->expectException($error->getMessage());
     }
   }
 
@@ -193,7 +193,7 @@ class QuickScraperClassTest extends TestCase
       $this->assertNotNull($responseArray);
     } catch (\Exception  $error) {
       $this->assertNotNull($error);
-      $this->expectException($error);
+      $this->expectException($error->getMessage());
     }
   }
 
@@ -219,7 +219,7 @@ class QuickScraperClassTest extends TestCase
       $this->assertNotNull($responseArray);
     } catch (\Exception  $error) {
       $this->assertNotNull($error);
-      $this->expectException($error);
+      $this->expectException($error->getMessage());
     }
   }
 
@@ -243,7 +243,7 @@ class QuickScraperClassTest extends TestCase
       $this->assertNotNull($responseArray);
   } catch (\Exception  $error) {
     $this->assertNotNull($error);
-      $this->expectException($error);
+      $this->expectException($error->getMessage());
     }
   }
 
@@ -267,7 +267,7 @@ class QuickScraperClassTest extends TestCase
       $this->assertNotNull($responseArray);
     } catch (\Exception  $error) {
       $this->assertNotNull($error);
-      $this->expectException($error);
+      $this->expectException($error->getMessage());
     }
   }
 
@@ -291,7 +291,7 @@ class QuickScraperClassTest extends TestCase
       $this->assertNotNull($responseArray);
     } catch (\Exception  $error) {
       $this->assertNotNull($error);
-      $this->expectException($error);
+      $this->expectException($error->getMessage());
     }
   }
 
@@ -315,7 +315,7 @@ class QuickScraperClassTest extends TestCase
       $this->assertNotNull($responseArray);
     } catch (\Exception  $error) {
       $this->assertNotNull($error);
-      $this->expectException($error);
+      $this->expectException($error->getMessage());
     }
   }
 }
