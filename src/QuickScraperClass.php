@@ -6,7 +6,6 @@ use QuickScraper\Constants\Config;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
 
-
 class QuickScraperClass
 {
   private $accessToken = '';
@@ -65,8 +64,8 @@ class QuickScraperClass
       $responseObject =  (Object) array(
         'data' => $response->getBody()->getContents(),
         'metadata' => array(
-          'quotaMax' => $quotaMax,
-          'quotaRemaining' => $quotaRemainig,
+          'quotaMax' => $quotaMax[0],
+          'quotaRemaining' => $quotaRemainig[0],
         ),
       );
       return json_encode($responseObject, JSON_HEX_TAG);
@@ -135,8 +134,8 @@ class QuickScraperClass
     if (isset($parseOptions['country_code']) && $parseOptions['country_code'] !== '') {
       $urlOptions['country_code'] = $parseOptions['country_code'];
     }
-    if (isset($parseOptions['keep_headers']) && $parseOptions['keep_headers'] !== '') {
-      $urlOptions['keep_headers'] = $parseOptions['keep_headers'];
+    if (isset($parseOptions['keep_headers']) && $parseOptions['keep_headers'] === true) {
+      $urlOptions['keep_headers'] = 'true';
     }
     $requestUrl = $this->parseUrl . '?' . http_build_query($urlOptions, '', '&');
     return $requestUrl;
