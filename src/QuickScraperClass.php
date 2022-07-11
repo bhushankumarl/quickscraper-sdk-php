@@ -85,13 +85,13 @@ class QuickScraperClass
       return json_encode($throwError);
     }
   }
-  public function post(string $url, array $parseOptions = [])
+  private function post(string $url, array $parseOptions = [])
   {
     $response = $this->getHtml($url, $parseOptions);
     return $response;
   }
 
-  public function put(string $url, array $parseOptions = [])
+  private function put(string $url, array $parseOptions = [])
   {
     $response = $this->getHtml($url, $parseOptions);
     return $response;

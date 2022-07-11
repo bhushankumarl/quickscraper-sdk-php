@@ -117,35 +117,35 @@ class QuickScraperClassTest extends TestCase
   }
 
   /** Request should Passed with POST Options */
-  public function testPostGetHtml()
-  {
-    try {
-      $object = new QuickScraperClass('dummy');
-      $response = $object->post(MockConfig::sampleRequestUrl());
-      $responseArray = json_decode($response);
-      $this->assertObjectHasAttribute('message', $responseArray);
-      $this->assertObjectNotHasAttribute('data', $responseArray);
-       $this->assertNotNull($responseArray);
-    } catch (\Exception  $error) {
-      $this->assertNotNull($error);
-      $this->expectException($error->getMessage());
-    }
-  }
+  // public function testPostGetHtml()
+  // {
+  //   try {
+  //     $object = new QuickScraperClass('dummy');
+  //     $response = $object->post(MockConfig::sampleRequestUrl());
+  //     $responseArray = json_decode($response);
+  //     $this->assertObjectHasAttribute('message', $responseArray);
+  //     $this->assertObjectNotHasAttribute('data', $responseArray);
+  //      $this->assertNotNull($responseArray);
+  //   } catch (\Exception  $error) {
+  //     $this->assertNotNull($error);
+  //     $this->expectException($error->getMessage());
+  //   }
+  // }
   /** Request should Passed with PUT Options */
-  public function testPutGetHtml()
-  {
-    try {
-      $object = new QuickScraperClass('dummy');
-      $response = $object->put(MockConfig::sampleRequestUrl());
-      $responseArray = json_decode($response);
-      $this->assertObjectHasAttribute('message', $responseArray);
-      $this->assertObjectNotHasAttribute('data', $responseArray);
-       $this->assertNotNull($responseArray);
-    } catch (\Exception  $error) {
-      $this->assertNotNull($error);
-      $this->expectException($error->getMessage());
-    }
-  }
+  // public function testPutGetHtml()
+  // {
+  //   try {
+  //     $object = new QuickScraperClass('dummy');
+  //     $response = $object->put(MockConfig::sampleRequestUrl());
+  //     $responseArray = json_decode($response);
+  //     $this->assertObjectHasAttribute('message', $responseArray);
+  //     $this->assertObjectNotHasAttribute('data', $responseArray);
+  //      $this->assertNotNull($responseArray);
+  //   } catch (\Exception  $error) {
+  //     $this->assertNotNull($error);
+  //     $this->expectException($error->getMessage());
+  //   }
+  // }
   /**
    * -------------------------------------------------------------------
    * Import : Request should be Passed with render: true 
@@ -203,38 +203,38 @@ class QuickScraperClassTest extends TestCase
    *---------------------------------------------------------
    */
 
-  public function testSessionNumberRequest()
-  {
-    $requestUrl = (new MockConfig)->SAMPLE_REQUEST_URL_1;
+  // public function testSessionNumberRequest()
+  // {
+  //   $requestUrl = (new MockConfig)->SAMPLE_REQUEST_URL_1;
 
-    $QuickScraperClient = new QuickScraperClass(MockConfig::getAccessToken());
-    try {
-      $options =  array(
-        'session_number' => 'QS-' . strtotime("now")
-      );
-      $response = $QuickScraperClient->getHtml($requestUrl, $options);
-      $responseArray = json_decode($response);
-      $this->assertObjectNotHasAttribute('message', $responseArray);
-      $this->assertObjectHasAttribute('data', $responseArray);
-      $this->assertNotNull($responseArray);
-    } catch (\Exception  $error) {
-      $this->assertNotNull($error);
-      $this->expectException($error->getMessage());
-    }
-  }
+  //   $QuickScraperClient = new QuickScraperClass(MockConfig::getAccessToken());
+  //   try {
+  //     $options =  array(
+  //       'session_number' => 'QS-' . strtotime("now")
+  //     );
+  //     $response = $QuickScraperClient->getHtml($requestUrl, $options);
+  //     $responseArray = json_decode($response);
+  //     $this->assertObjectNotHasAttribute('message', $responseArray);
+  //     $this->assertObjectHasAttribute('data', $responseArray);
+  //     $this->assertNotNull($responseArray);
+  //   } catch (\Exception  $error) {
+  //     $this->assertNotNull($error);
+  //     $this->expectException($error->getMessage());
+  //   }
+  // }
 
   /**
    *---------------------------------------------------------
-   * Import : Request should be Passed with IN Location
+   * Import : Request should be Passed with US Location
    *---------------------------------------------------------
    */
-  public function testINLocation()
+  public function testUSLocation()
   {
     $requestUrl = (new MockConfig)->SAMPLE_REQUEST_URL_COUNTRY;
     $QuickScraperClient = new QuickScraperClass(MockConfig::getAccessToken());
     try {
       $options = array(
-        'country_code' => 'IN'
+        'country_code' => 'US'
       );
       $response = $QuickScraperClient->getHtml($requestUrl, $options);
       $responseArray = json_decode($response);
@@ -276,46 +276,46 @@ class QuickScraperClassTest extends TestCase
    * Import : Request should be Passed with POST Options
    *---------------------------------------------------------
    */
-  public function testPOSTOptions()
-  {
-    $requestUrl = (new MockConfig)->SAMPLE_REQUEST_URL_COUNTRY;
-    $QuickScraperClient = new QuickScraperClass(MockConfig::getAccessToken());
-    try {
-      $options = array(
-        'premium' => true
-      );
-      $response = $QuickScraperClient->getHtml($requestUrl, $options);
-      $responseArray = json_decode($response);
-      $this->assertObjectNotHasAttribute('message', $responseArray);
-      $this->assertObjectHasAttribute('data', $responseArray);
-      $this->assertNotNull($responseArray);
-    } catch (\Exception  $error) {
-      $this->assertNotNull($error);
-      $this->expectException($error->getMessage());
-    }
-  }
+  // public function testPOSTOptions()
+  // {
+  //   $requestUrl = (new MockConfig)->SAMPLE_REQUEST_URL_COUNTRY;
+  //   $QuickScraperClient = new QuickScraperClass(MockConfig::getAccessToken());
+  //   try {
+  //     $options = array(
+  //       'premium' => true
+  //     );
+  //     $response = $QuickScraperClient->getHtml($requestUrl, $options);
+  //     $responseArray = json_decode($response);
+  //     $this->assertObjectNotHasAttribute('message', $responseArray);
+  //     $this->assertObjectHasAttribute('data', $responseArray);
+  //     $this->assertNotNull($responseArray);
+  //   } catch (\Exception  $error) {
+  //     $this->assertNotNull($error);
+  //     $this->expectException($error->getMessage());
+  //   }
+  // }
 
   /**
    *---------------------------------------------------------
    * Import : Request should be Passed with PUT Options
    *---------------------------------------------------------
    */
-  public function testPUTOptions()
-  {
-    $requestUrl = (new MockConfig)->SAMPLE_REQUEST_URL_1;
-    $QuickScraperClient = new QuickScraperClass(MockConfig::getAccessToken());
-    try {
-      $options = array(
-        'premium' => true
-      );
-      $response = $QuickScraperClient->getHtml($requestUrl, $options);
-      $responseArray = json_decode($response);
-      $this->assertObjectNotHasAttribute('message', $responseArray);
-      $this->assertObjectHasAttribute('data', $responseArray);
-      $this->assertNotNull($responseArray);
-    } catch (\Exception  $error) {
-      $this->assertNotNull($error);
-      $this->expectException($error->getMessage());
-    }
-  }
+  // public function testPUTOptions()
+  // {
+  //   $requestUrl = (new MockConfig)->SAMPLE_REQUEST_URL_1;
+  //   $QuickScraperClient = new QuickScraperClass(MockConfig::getAccessToken());
+  //   try {
+  //     $options = array(
+  //       'premium' => true
+  //     );
+  //     $response = $QuickScraperClient->getHtml($requestUrl, $options);
+  //     $responseArray = json_decode($response);
+  //     $this->assertObjectNotHasAttribute('message', $responseArray);
+  //     $this->assertObjectHasAttribute('data', $responseArray);
+  //     $this->assertNotNull($responseArray);
+  //   } catch (\Exception  $error) {
+  //     $this->assertNotNull($error);
+  //     $this->expectException($error->getMessage());
+  //   }
+  // }
 }
