@@ -60,7 +60,6 @@ class QuickScraperClass
       $response = $httpClient->getAsync($requestUrl, $gotOptions)->wait();
       $quotaMax = $response->getHeaders()['x-qs-quota-max'];
       $quotaRemainig = $response->getHeaders()['x-qs-quota-remaining'];
-      var_dump($requestUrl);
       $responseObject =  (Object) array(
         'data' => $response->getBody()->getContents(),
         'metadata' => array(
