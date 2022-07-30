@@ -23,121 +23,74 @@ composer require quickscraper/sdk
 
 <?php
 require_once './vendor/autoload.php';
-$sdk =  new QuickScraper\Main\QuickScraperClass('ACCESS_TOKEN');
-print_r($sdk->getHtml('https://mylocation.org'));
-
+$sdk =  new QuickScraper\Main\QuickScraperClass();
+$sdk->setAccessToken('YOUR_ACCESS_TOKEN');
+$html = $sdk->getHtml('https://mylocation.org');
+print_r(json_decode($html));
 ?>
 ```
 ### Rendering Javascript
 
-``` php
+```php
+<?php
 require_once './vendor/autoload.php';
 
-$quickScraperClient = new QuickScraper\Main\QuickScraperClass('ACCESS_TOKEN');
+$quickScraperClient = new QuickScraper\Main\QuickScraperClass();
 $quickScraperClient->setAccessToken('YOUR_ACCESS_TOKEN');
-$response = $quickScraperClient->getHtml('http://httpbin.org/ip', {
-    render: true
-});
-print_r($response);
+$response = $quickScraperClient->getHtml('http://httpbin.org/ip', array(
+    'render'=> 'true'
+  )
+);
+print_r(json_decode($response));
 
 ```
 
 ### Custom Headers
 
-``` php
+```php
+<?php
 require_once './vendor/autoload.php';
 
-$quickScraperClient = new QuickScraper\Main\QuickScraperClass('ACCESS_TOKEN');
+$quickScraperClient = new QuickScraper\Main\QuickScraperClass();
 $quickScraperClient->setAccessToken('YOUR_ACCESS_TOKEN');
-$response = $quickScraperClient->getHtml('http://httpbin.org/ip', {
-    headers: {
-        'X-My-Custom-Header': 'QS-APP'
-    }
-});
-print_r($response);
-
-```
-### Sessions
-
-``` php
-require_once './vendor/autoload.php';
-
-$quickScraperClient = new QuickScraper\Main\QuickScraperClass('ACCESS_TOKEN');
-$quickScraperClient->setAccessToken('YOUR_ACCESS_TOKEN');
-$response = $quickScraperClient->getHtml('http://httpbin.org/ip', {
-    session_number: 'YOUR-LONG-UNIQUE-STRING'
-});
-print_r($response);
+$response = $quickScraperClient->getHtml('http://httpbin.org/headers', array(
+    "keep_headers" => true,
+    'headers' => array('X-My-Custom-Header'=> 'QS-APP')
+  )
+);
+print_r(json_decode($response));
 
 ```
 
 ### Geographic Location
 
-``` php
+```php
+<?php
 require_once './vendor/autoload.php';
 
-$quickScraperClient = new QuickScraper\Main\QuickScraperClass('ACCESS_TOKEN');
+$quickScraperClient = new QuickScraper\Main\QuickScraperClass();
 $quickScraperClient->setAccessToken('YOUR_ACCESS_TOKEN');
-$response = $quickScraperClient->getHtml('http://httpbin.org/ip', {
-    country_code: 'US'
-});
-print_r($response);
+$response = $quickScraperClient->getHtml('http://httpbin.org/ip', array(
+    'country_code'=> 'us'
+));
+print_r(json_decode($response));
 ```
 
 ### Premium Residential/Mobile Proxy Pools
 
 ``` php
+<?php
 require_once './vendor/autoload.php';
 
-$quickScraperClient = new QuickScraper\Main\QuickScraperClass('ACCESS_TOKEN');
+$quickScraperClient = new QuickScraper\Main\QuickScraperClass();
 $quickScraperClient->setAccessToken('YOUR_ACCESS_TOKEN');
-$response = $quickScraperClient->getHtml('http://httpbin.org/ip', {
-    premium: true
-});
-print_r($response);
-```
-
-### POST/PUT Requests
-
-``` php
-require_once './vendor/autoload.php';
-
-$quickScraperClient = new QuickScraper\Main\QuickScraperClass('ACCESS_TOKEN');
-$quickScraperClient->setAccessToken('YOUR_ACCESS_TOKEN');
-$responsePost = $quickScraperClient->post('http://httpbin.org/ip', {
-    body: {
-        'foo': 'bar'
-    }
-});
-print_r($responsePost);
-
-$responsePut = $quickScraperClient->put('http://httpbin.org/ip', {
-    body: {
-        'foo': 'bar'
-    }
-});
-print_r($responsePut);
-```
-
-
-### Proxy Mode
-
-``` php
-$require_once './vendor/autoload.php';
-
-$quickScraperClient = new QuickScraper\Main\QuickScraperClass('ACCESS_TOKEN');
-
-$options = {
-    method: 'GET',
-    url: 'http://httpbin.org/ip',
-    proxy: 'http://quickscraper:YOURAPIKEY@proxy-server.quickscraper.co:1008',
-};
-$response = $quickScraperClient->getHtml('http://httpbin.org/ip', $options);
-print_r($response);
-
+$response = $quickScraperClient->getHtml('http://httpbin.org/ip', array(
+    'premium'=> true
+));
+print_r(json_decode($response));
 ```
 
 ## Do you need an expert?
 
-Are you finding a developer for your world-class product? If yes, please contact here. [Submit your project request here.](https://goo.gl/forms/UofdG5GY5iHMoUWg2)
-Originally by [Bhushankumar L](mailto:bhushankumar.lilapara@gmail.com).
+Are you finding a developer for your world-class product? If yes, please contact here.
+Originally by [QuickScraper Developers - app@quickscraper.co](mailto:app@quickscraper.co).
