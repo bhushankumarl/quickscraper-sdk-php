@@ -74,14 +74,16 @@ class QuickScraperClass
       if ($responseError->message && $responseError->statusCode) {
         $statusCode =  $responseError->statusCode ? $responseError->statusCode : 530;
         http_response_code($statusCode);
-        return json_encode($responseError);
+        // return json_encode($responseError);
+        throw new \Exception($responseError->message, $statusCode);
       }
       $statusCode = 530;
       $message = 'Failed to process request';
       $type = 'UNKNOWN';
       $throwError = array('message' => $message, 'status' => $statusCode);
       http_response_code($statusCode);
-      return json_encode($throwError);
+      // return json_encode($throwError);
+      throw new \Exception($throwError['message'], $statusCode);
     }
   }
   private function post(string $url, array $parseOptions = [])
@@ -157,6 +159,32 @@ class QuickScraperClass
       return $mergedHeaders;
     }
     return $headers;
+  }
+
+  public function account()
+  {
+    $requestUrl = $this->DEFAULT['HOST'] . 'account/?access_token='. $this->accessToken;
+    try {
+      $httpClient = new Client();
+      $response = $httpClient->getAsync($requestUrl)->wait();
+      return json_encode($response->getBody()->getContents(), JSON_HEX_TAG);
+    } catch (RequestException  $exception) {
+      $response = $exception->getResponse();
+      $responseError = json_decode((string) $response->getBody());
+      if ($responseError->message && $responseError->statusCode) {
+        $statusCode =  $responseError->statusCode ? $responseError->statusCode : 530;
+        http_response_code($statusCode);
+        // return json_encode($responseError);
+        throw new \Exception($responseError->message, $statusCode);
+      }
+      $statusCode = 530;
+      $message = 'Failed to process request';
+      $type = 'UNKNOWN';
+      $throwError = array('message' => $message, 'status' => $statusCode);
+      http_response_code($statusCode);
+      // return json_encode($throwError);
+      throw new \Exception($throwError['message'], $statusCode);
+    }
   }
 
   // Load all package from the project
