@@ -102,6 +102,19 @@ $response = $quickScraperClient->account();
 print_r(json_decode($response));
 ```
 
+### Device Type
+
+``` php
+<?php
+require_once './vendor/autoload.php';
+$quickScraperClient = new QuickScraper\Main\QuickScraperClass();
+$quickScraperClient->setAccessToken('YOUR_ACCESS_TOKEN');
+$response = $quickScraperClient->getHtml('http://httpbin.org/ip', array(
+    'device_type'=> 'mobile'
+));
+print_r(json_decode($response));
+```
+
 ## Do you need an expert?
 
 Are you finding a developer for your world-class product? If yes, please contact here.

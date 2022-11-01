@@ -138,6 +138,9 @@ class QuickScraperClass
     if (isset($parseOptions['keep_headers']) && $parseOptions['keep_headers'] === true) {
       $urlOptions['keep_headers'] = 'true';
     }
+    if (isset($parseOptions['device_type']) && $parseOptions['device_type'] !== null) {
+      $urlOptions['device_type'] = $parseOptions['device_type'];
+    }
     $requestUrl = $this->parseUrl . '?' . http_build_query($urlOptions, '', '&');
     return $requestUrl;
   }
