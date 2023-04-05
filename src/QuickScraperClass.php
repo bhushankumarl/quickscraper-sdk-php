@@ -13,7 +13,7 @@ class QuickScraperClass
   private $DEFAULT = array(
     'Client' => 'PHP_CLIENT_LIB',
     'HOST' => '',
-    'Client-Version' => '2.5'
+    'Client-Version' => '2.6'
   );
 
   /**
@@ -58,14 +58,8 @@ class QuickScraperClass
     try {
       $httpClient = new Client();
       $response = $httpClient->getAsync($requestUrl, $gotOptions)->wait();
-      $quotaMax = $response->getHeaders()['x-qs-quota-max'];
-      $quotaRemainig = $response->getHeaders()['x-qs-quota-remaining'];
       $responseObject =  (Object) array(
-        'data' => $response->getBody()->getContents(),
-        'metadata' => array(
-          'quotaMax' => $quotaMax[0],
-          'quotaRemaining' => $quotaRemainig[0],
-        ),
+        'data' => $response->getBody()->getContents()
       );
       return json_encode($responseObject, JSON_HEX_TAG);
     } catch (RequestException  $exception) {
@@ -140,6 +134,9 @@ class QuickScraperClass
     }
     if (isset($parseOptions['device_type']) && $parseOptions['device_type'] !== null) {
       $urlOptions['device_type'] = $parseOptions['device_type'];
+    }
+    if (isset($parseOptions['parserSubscriptionId']) && $parseOptions['parserSubscriptionId'] !== null) {
+      $urlOptions['parserSubscriptionRequestId'] = $parseOptions['parserSubscriptionId'];
     }
     $requestUrl = $this->parseUrl . '?' . http_build_query($urlOptions, '', '&');
     return $requestUrl;
