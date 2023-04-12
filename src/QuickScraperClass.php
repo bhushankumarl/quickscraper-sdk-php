@@ -13,7 +13,7 @@ class QuickScraperClass
   private $DEFAULT = array(
     'Client' => 'PHP_CLIENT_LIB',
     'HOST' => '',
-    'Client-Version' => '2.6'
+    'Client-Version' => '2.7'
   );
 
   /**
@@ -111,6 +111,7 @@ class QuickScraperClass
     fclose($isFileExits);
     return $getHtml;
   }
+
   private function prepareRequestUrl(string $url, array $parseOptions = [])
   {
     $urlOptions = array(
@@ -138,9 +139,13 @@ class QuickScraperClass
     if (isset($parseOptions['parserSubscriptionId']) && $parseOptions['parserSubscriptionId'] !== null) {
       $urlOptions['parserSubscriptionRequestId'] = $parseOptions['parserSubscriptionId'];
     }
+    if (isset($parseOptions['webhookRequestId']) && $parseOptions['webhookRequestId'] !== null) {
+      $urlOptions['webhookRequestId'] = $parseOptions['webhookRequestId'];
+    }
     $requestUrl = $this->parseUrl . '?' . http_build_query($urlOptions, '', '&');
     return $requestUrl;
   }
+  
   /**
    * @param array|null $customHeaders
    * @param array|null $parseOptions
@@ -159,6 +164,12 @@ class QuickScraperClass
       return $mergedHeaders;
     }
     return $headers;
+  }
+  
+  public function getData(string $url, array $parseOptions = [] )
+  {
+      $getHtml = $this->getHtml($url, $parseOptions);
+      return $getHtml;
   }
 
   public function account()
