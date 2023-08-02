@@ -139,6 +139,32 @@ $response = $quickScraperClient->getHtml('http://httpbin.org/ip', array(
 print_r(json_decode($response));
 ```
 
+### Submit form data
+``` php
+<?php
+require_once './vendor/autoload.php';
+$quickScraperClient = new QuickScraper\Main\QuickScraperClass();
+$quickScraperClient->setAccessToken('YOUR_ACCESS_TOKEN');
+$response = $quickScraperClient->post('http://httpbin.org/ip', array(
+    'webhookRequestId' => 'YOUR_WEBHOOK_REQUEST_ID',
+    'formData' => array(
+        'formSelector' => 'FORM_SELECTOR',
+        'submitButtonSelector' => 'SUBMIT_BUTTON_SELECTOR',
+        'formSelectorScript' => 'FORM_SELECTOR_SCRIPT',
+        'submitButtonSelectorScript' => 'SUBMIT_BUTTON_SELECTOR_SCRIPT',
+        'formFields' => array(
+            array(
+                'value' => 'VALUE_TO_PASS_IN_FORM',
+                'selectorScript' => 'SELECT_INPUT',
+                'isScript' => 'BOOLEAN'
+            )
+        ),
+        'isKeepFormDataSelection' => true
+    )
+));
+print_r(json_decode($response));
+```
+
 ## Do you need an expert?
 
 Are you finding a developer for your world-class product? If yes, please contact here.
