@@ -62,6 +62,10 @@ class QuickScraperClass
         $gotOptions['form_params'] = $bodyData;
         $response = $httpClient->postAsync($this->parseUrl, $gotOptions)->wait();
         return $response;
+      } else if((isset($parseOptions['dynamicInputs']))){
+        $bodyData = $this->prepareRequestBody($url, $parseOptions);
+        $gotOptions['form_params'] = $bodyData;
+        $response = $httpClient->postAsync($this->parseUrl, $gotOptions)->wait();
       }
       $requestUrl = $this->prepareRequestUrl($url, $parseOptions);
       $response = $httpClient->getAsync($requestUrl, $gotOptions)->wait();
@@ -295,8 +299,11 @@ class QuickScraperClass
     if (isset($parseOptions['formData'])) {
       $urlOptions['formData'] = json_encode($parseOptions['formData']);
     }
-    if (isset($parseOptions['keepFormdataSelection'])) {
-      $urlOptions['keepFormdataSelection'] = $parseOptions['keepFormdataSelection'];
+    if (isset($parseOptions['isKeepFormDataSelection'])) {
+      $urlOptions['isKeepFormDataSelection'] = $parseOptions['isKeepFormDataSelection'];
+    }
+    if (isset($parseOptions['dynamicInputs'])) {
+      $urlOptions['dynamicInputs'] = json_encode($parseOptions['dynamicInputs']);
     }
 
     return $urlOptions;

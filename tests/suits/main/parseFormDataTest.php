@@ -16,7 +16,7 @@ class ParserRequestWithFormData extends TestCase
 	public function testConCurrentRequest()
 	{
 		$QuickScraperClient = new QuickScraperClass(MockConfig::getAccessToken());
-		$requestUrl = 'https://www.amazon.com';
+		$requestUrl = 'http://ip-api.com/json';
 
 		try {
 			$parseOptions = array(
@@ -44,7 +44,7 @@ class ParserRequestWithFormData extends TestCase
 						)
 					)
 				),
-				'keepFormdataSelection' => true,
+				'isKeepFormDataSelection' => true,
 				'format' => 'html',
 				'submitType' => 'local',
 				'isScroll' => true

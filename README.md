@@ -145,7 +145,7 @@ print_r(json_decode($response));
 require_once './vendor/autoload.php';
 $quickScraperClient = new QuickScraper\Main\QuickScraperClass();
 $quickScraperClient->setAccessToken('YOUR_ACCESS_TOKEN');
-$response = $quickScraperClient->post('http://httpbin.org/ip', array(
+$response = $quickScraperClient->getHtml('http://httpbin.org/ip', array(
     'webhookRequestId' => 'YOUR_WEBHOOK_REQUEST_ID',
     'formData' => array(
         'formSelector' => 'FORM_SELECTOR',
@@ -159,8 +159,31 @@ $response = $quickScraperClient->post('http://httpbin.org/ip', array(
                 'isScript' => 'BOOLEAN'
             )
         ),
-        'isKeepFormDataSelection' => true
-    )
+    ),
+    'isKeepFormDataSelection' => true
+));
+
+print_r(json_decode($response));
+```
+
+### Add Dynamic Input with Parser
+``` php
+<?php
+require_once './vendor/autoload.php';
+$quickScraperClient = new QuickScraper\Main\QuickScraperClass();
+$quickScraperClient->setAccessToken('YOUR_ACCESS_TOKEN');
+$response = $quickScraperClient->getHtml('http://httpbin.org/ip', array(
+    'parserSubscriptionId' => 'YOUR_PARSER_SUBSCRIPTION_ID',
+    'dynamicInputs' => array(
+		array(
+			'label' => 'username',
+			'value' => 'username'
+		),
+		array(
+			'label' => 'password',
+			'value' => 'password'
+		)
+	),
 ));
 print_r(json_decode($response));
 ```
