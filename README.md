@@ -176,12 +176,8 @@ $response = $quickScraperClient->getHtml('http://httpbin.org/ip', array(
     'parserSubscriptionId' => 'YOUR_PARSER_SUBSCRIPTION_ID',
     'dynamicInputs' => array(
 		array(
-			'name' => 'username',
-			'value' => 'username'
-		),
-		array(
-			'name' => 'password',
-			'value' => 'password'
+			'name' => 'YOUR_INPUT_NAME',
+			'value' => 'YOUR_VALUE'
 		)
 	),
 ));
