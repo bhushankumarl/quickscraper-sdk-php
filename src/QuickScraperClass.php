@@ -57,17 +57,16 @@ class QuickScraperClass
     );
     try {
       $httpClient = new Client();
-      if ((isset($parseOptions['customSelectors']) && sizeof($parseOptions['customSelectors']) > 0) || isset($parseOptions['formData'])) {
-        $bodyData = $this->prepareRequestBody($url, $parseOptions);
+      if ((isset($parseOptions['customSelectors']) && sizeof($parseOptions['customSelectors']) > 0) || isset($parseOptions['formData']) || ((isset($parseOptions['dynamicInputs'])) && isset($parseOptions['parserSubscriptionId']))) {
+        $bodyData = $this->prepareRequestBodyOrUrl($url, $parseOptions, 'POST');
         $gotOptions['form_params'] = $bodyData;
         $response = $httpClient->postAsync($this->parseUrl, $gotOptions)->wait();
-        return $response;
-      } else if((isset($parseOptions['dynamicInputs']))){
-        $bodyData = $this->prepareRequestBody($url, $parseOptions);
-        $gotOptions['form_params'] = $bodyData;
-        $response = $httpClient->postAsync($this->parseUrl, $gotOptions)->wait();
+        $responseObject = (Object) array(
+          'data' => $response->getBody()->getContents()
+        );
+        return json_encode($responseObject, JSON_HEX_TAG);
       }
-      $requestUrl = $this->prepareRequestUrl($url, $parseOptions);
+      $requestUrl = $this->prepareRequestBodyOrUrl($url, $parseOptions, 'GET');
       $response = $httpClient->getAsync($requestUrl, $gotOptions)->wait();
       $responseObject = (Object) array(
         'data' => $response->getBody()->getContents()
@@ -121,52 +120,6 @@ class QuickScraperClass
     }
     fclose($isFileExits);
     return $getHtml;
-  }
-
-  private function prepareRequestUrl(string $url, array $parseOptions = [])
-  {
-    $urlOptions = array(
-      'access_token' => $this->accessToken,
-      'URL' => $url
-    );
-    if (isset($parseOptions['premium']) && $parseOptions['premium'] === true) {
-      $urlOptions['premium'] = 'true';
-    }
-    if (isset($parseOptions['render']) && $parseOptions['render'] === true) {
-      $urlOptions['render'] = 'true';
-    }
-    if (isset($parseOptions['session_number']) && $parseOptions['session_number'] !== '') {
-      $urlOptions['session_number'] = $parseOptions['session_number'];
-    }
-    if (isset($parseOptions['country_code']) && $parseOptions['country_code'] !== '') {
-      $urlOptions['country_code'] = $parseOptions['country_code'];
-    }
-    if (isset($parseOptions['keep_headers']) && $parseOptions['keep_headers'] === true) {
-      $urlOptions['keep_headers'] = 'true';
-    }
-    if (isset($parseOptions['device_type']) && $parseOptions['device_type'] !== null) {
-      $urlOptions['device_type'] = $parseOptions['device_type'];
-    }
-    if (isset($parseOptions['parserSubscriptionId']) && $parseOptions['parserSubscriptionId'] !== null) {
-      $urlOptions['parserSubscriptionRequestId'] = $parseOptions['parserSubscriptionId'];
-    }
-    if (isset($parseOptions['webhookRequestId']) && $parseOptions['webhookRequestId'] !== null) {
-      $urlOptions['webhookRequestId'] = $parseOptions['webhookRequestId'];
-    }
-    if (isset($parseOptions['isScroll'])) {
-      $urlOptions['isScroll'] = $parseOptions['isScroll'];
-    }
-    if (isset($parseOptions['scrollTimeout'])) {
-      $urlOptions['scrollTimeout'] = $parseOptions['scrollTimeout'];
-    }
-    if (isset($parseOptions['isPabbly'])) {
-      $urlOptions['isPabbly'] = $parseOptions['isPabbly'];
-    }
-    if (isset($parseOptions['isZapier'])) {
-      $urlOptions['isZapier'] = $parseOptions['isZapier'];
-    }
-    $requestUrl = $this->parseUrl . '?' . http_build_query($urlOptions, '', '&');
-    return $requestUrl;
   }
 
   /**
@@ -248,7 +201,7 @@ class QuickScraperClass
     }
   }
 
-  private function prepareRequestBody($url, $parseOptions)
+  private function prepareRequestBodyOrUrl($url, $parseOptions, $requestType)
   {
     $urlOptions = array(
       'access_token' => $this->accessToken,
@@ -305,7 +258,10 @@ class QuickScraperClass
     if (isset($parseOptions['dynamicInputs'])) {
       $urlOptions['dynamicInputs'] = json_encode($parseOptions['dynamicInputs']);
     }
-
+    if ($requestType == 'GET') {
+      $requestUrl = $this->parseUrl . '?' . http_build_query($urlOptions, '', '&');
+      return $requestUrl;
+    }
     return $urlOptions;
   }
 }
