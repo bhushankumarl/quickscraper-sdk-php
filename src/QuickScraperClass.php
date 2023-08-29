@@ -150,11 +150,14 @@ class QuickScraperClass
 
   public function account()
   {
-    $requestUrl = $this->DEFAULT['HOST'] . 'account/?access_token=' . $this->accessToken;
+    $requestUrl = $this->DEFAULT['HOST'] . 'account?access_token=' . $this->accessToken;
     try {
       $httpClient = new Client();
       $response = $httpClient->getAsync($requestUrl)->wait();
-      return json_encode($response->getBody()->getContents(), JSON_HEX_TAG);
+      $responseObject = (Object) array(
+        'data' => $response->getBody()->getContents()
+      );
+      return json_encode($responseObject, JSON_HEX_TAG);
     } catch (RequestException $exception) {
       $response = $exception->getResponse();
       $responseError = json_decode((string) $response->getBody());
