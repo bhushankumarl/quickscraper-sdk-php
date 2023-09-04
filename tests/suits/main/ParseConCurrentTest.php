@@ -26,11 +26,11 @@ class ParseConCurrentTest extends TestCase
 				array_push($promises, $responseArray);
 				$this->assertObjectHasAttribute('data', $responseArray);
 				$this->assertObjectNotHasAttribute('message', $responseArray);
-        $this->assertNotNull($responseArray);
+				$this->assertNotNull($responseArray);
 			}
 			$this->assertNotEmpty($promises);
 		} catch (\Exception $error) {
-      $this->assertNotNull($error);
+			$this->assertNotNull($error);
 			$this->expectException($error);
 		}
 	}
