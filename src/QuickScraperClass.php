@@ -261,6 +261,9 @@ class QuickScraperClass
     if (isset($parseOptions['dynamicInputs'])) {
       $urlOptions['dynamicInputs'] = json_encode($parseOptions['dynamicInputs']);
     }
+    if (isset($parseOptions['parserResponseType'])) {
+      $urlOptions['parserResponseType'] = $parseOptions['parserResponseType'];
+    }
     if ($requestType == 'GET') {
       $requestUrl = $this->parseUrl . '?' . http_build_query($urlOptions, '', '&');
       return $requestUrl;
