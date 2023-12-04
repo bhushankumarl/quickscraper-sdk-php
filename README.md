@@ -148,7 +148,7 @@ $quickScraperClient->setAccessToken('YOUR_ACCESS_TOKEN');
 $response = $quickScraperClient->getHtml('http://httpbin.org/ip', array(
     'webhookRequestId' => 'YOUR_WEBHOOK_REQUEST_ID',
     'formData' => array(
-        'formSelector' => 'FORM_SELECTOR',
+        'formSelector' => 'FORM_SELECTOR', # form element selector
         'submitButtonSelector' => 'SUBMIT_BUTTON_SELECTOR',
         'formSelectorScript' => 'FORM_SELECTOR_SCRIPT',
         'submitButtonSelectorScript' => 'SUBMIT_BUTTON_SELECTOR_SCRIPT',
