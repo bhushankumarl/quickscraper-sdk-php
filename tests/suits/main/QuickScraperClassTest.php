@@ -270,7 +270,36 @@ class QuickScraperClassTest extends TestCase
       $this->expectException($error->getMessage());
     }
   }
+  /**
+	 * ----------------------------------------------------------------------
+	 * Import : Use actions field with parser
+	 * ----------------------------------------------------------------------
+	 */
+  public function testActionsWithParser()
+  {
+    $requestUrl = (new MockConfig)->HEADER_URL;
 
+    $QuickScraperClient = new QuickScraperClass(MockConfig::getAccessToken());
+    try {
+      $options = array(
+        'keepSelection' => true,
+        'customSelectors' => array(
+          'name' => 'click',
+          'selectorScript' => 'input[data-testid="searchByUsePoints"]',
+          'options' => null,
+          'isScript' => false
+        ),
+      );
+      $response = $QuickScraperClient->getHtml($requestUrl, $options);
+      $responseArray = json_decode($response);
+      $this->assertObjectNotHasAttribute('message', $responseArray);
+      $this->assertObjectHasAttribute('data', $responseArray);
+      $this->assertNotNull($responseArray);
+    } catch (\Exception  $error) {
+      $this->assertNotNull($error);
+      $this->expectException($error->getMessage());
+    }
+  }
   /**
    *---------------------------------------------------------
    * Import : Request should be Passed with POST Options
