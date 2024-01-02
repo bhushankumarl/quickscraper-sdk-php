@@ -13,7 +13,7 @@ class QuickScraperClass
   private $DEFAULT = array(
     'Client' => 'PHP_CLIENT_LIB',
     'HOST' => '',
-    'Client-Version' => '2.8'
+    'Client-Version' => '2.9'
   );
 
   /**
