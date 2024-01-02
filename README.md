@@ -206,6 +206,20 @@ $response = $quickScraperClient->getHtml('https://www.hilton.com/en/locations/in
 print_r(json_decode($response));
 ```
 
+### Scroll To Bottom Of The Page
+``` php
+<?php
+require_once './vendor/autoload.php';
+$quickScraperClient = new QuickScraper\Main\QuickScraperClass();
+$quickScraperClient->setAccessToken('YOUR_ACCESS_TOKEN');
+$response = $quickScraperClient->getHtml('YOUR_REQUEST_URL', array(
+    'isScroll' => true,
+    'scrollTimeout' => 1000, // Consider as milliseconds, wait to page to scrap
+    
+));
+print_r(json_decode($response));
+```
+
 ## Do you need an expert?
 
 Are you finding a developer for your world-class product? If yes, please contact here.
