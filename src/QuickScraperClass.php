@@ -13,7 +13,7 @@ class QuickScraperClass
   private $DEFAULT = array(
     'Client' => 'PHP_CLIENT_LIB',
     'HOST' => '',
-    'Client-Version' => '3.1'
+    'Client-Version' => '3.2'
   );
 
   /**
@@ -61,14 +61,14 @@ class QuickScraperClass
         $bodyData = $this->prepareRequestBodyOrUrl($url, $parseOptions, 'POST');
         $gotOptions['form_params'] = $bodyData;
         $response = $httpClient->postAsync($this->parseUrl, $gotOptions)->wait();
-        $responseObject = (Object) array(
+        $responseObject = (object) array(
           'data' => $response->getBody()->getContents()
         );
         return json_encode($responseObject, JSON_HEX_TAG);
       }
       $requestUrl = $this->prepareRequestBodyOrUrl($url, $parseOptions, 'GET');
       $response = $httpClient->getAsync($requestUrl, $gotOptions)->wait();
-      $responseObject = (Object) array(
+      $responseObject = (object) array(
         'data' => $response->getBody()->getContents()
       );
       return json_encode($responseObject, JSON_HEX_TAG);
@@ -136,7 +136,7 @@ class QuickScraperClass
     if ($customHeaders !== null) {
       $mergedHeaders = array_merge($headers, $customHeaders);
     }
-    if ($parseOptions !== null && isset($parseOptions['keep_headers']) && $parseOptions['keep_headers'] === true) {
+    if ($parseOptions !== null && isset($parseOptions['keep_headers']) && $parseOptions['keep_headers'] === 'true') {
       return $mergedHeaders;
     }
     return $headers;
@@ -154,7 +154,7 @@ class QuickScraperClass
     try {
       $httpClient = new Client();
       $response = $httpClient->getAsync($requestUrl)->wait();
-      $responseObject = (Object) array(
+      $responseObject = (object) array(
         'data' => $response->getBody()->getContents()
       );
       return json_encode($responseObject, JSON_HEX_TAG);
@@ -211,12 +211,16 @@ class QuickScraperClass
       'URL' => $url
     );
 
-    $urlOptions['premium'] = (isset($parseOptions['premium']) && $parseOptions['premium'] === 'true') ? 'true' : 'false'; 
-    $urlOptions['render'] = (isset($parseOptions['render']) && $parseOptions['render'] === 'true') ? 'true' : 'false'; 
-    $urlOptions['keep_headers'] = (isset($parseOptions['keep_headers']) && $parseOptions['keep_headers'] === 'true') ? 'true' : 'false'; 
-    $urlOptions['isZapier'] = (isset($parseOptions['isZapier']) && $parseOptions['isZapier'] === 'true') ? 'true' : 'false'; 
-    $urlOptions['isPabbly'] = (isset($parseOptions['isPabbly']) && $parseOptions['isPabbly'] === 'true') ? 'true' : 'false'; 
-    
+    $urlOptions['premium'] = (isset($parseOptions['premium']) && $parseOptions['premium'] !== '') ? $parseOptions['premium'] : null;
+    $urlOptions['render'] = (isset($parseOptions['render']) && $parseOptions['render'] !== '') ? $parseOptions['render'] : null;
+    $urlOptions['isKeepHeaders'] = (isset($parseOptions['keep_headers']) && $parseOptions['keep_headers'] !== '') ? $parseOptions['keep_headers'] : null;
+    $urlOptions['isZapier'] = (isset($parseOptions['isZapier']) && $parseOptions['isZapier'] !== '') ? $parseOptions['isZapier'] : null;
+    $urlOptions['isPabbly'] = (isset($parseOptions['isPabbly']) && $parseOptions['isPabbly'] !== '') ? $parseOptions['isPabbly'] : null;
+    $urlOptions['isPabbly'] = (isset($parseOptions['isPabbly']) && $parseOptions['isPabbly'] !== '') ? $parseOptions['isPabbly'] : null;
+    $urlOptions['isMobile'] = (isset($parseOptions['isMobile']) && $parseOptions['isMobile'] !== '') ? $parseOptions['isMobile'] : null;
+    $urlOptions['customRequestHeaders'] = (isset($parseOptions['headers']) && $parseOptions['headers'] !== '' &&
+      isset($parseOptions['keep_headers']) && $parseOptions['keep_headers'] !== '') ? $parseOptions['headers'] : null;
+
     if (isset($parseOptions['session_number']) && $parseOptions['session_number'] !== '') {
       $urlOptions['session_number'] = $parseOptions['session_number'];
     }
