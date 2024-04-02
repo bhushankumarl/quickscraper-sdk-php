@@ -13,7 +13,7 @@ class QuickScraperClass
   private $DEFAULT = array(
     'Client' => 'PHP_CLIENT_LIB',
     'HOST' => '',
-    'Client-Version' => '3.0'
+    'Client-Version' => '3.1'
   );
 
   /**
@@ -210,20 +210,18 @@ class QuickScraperClass
       'access_token' => $this->accessToken,
       'URL' => $url
     );
-    if (isset($urlOptions['premium']) && $urlOptions['premium'] === true) {
-      $urlOptions['premium'] = 'true';
-    }
-    if (isset($parseOptions['render']) && $parseOptions['render'] === true) {
-      $urlOptions['render'] = 'true';
-    }
+
+    $urlOptions['premium'] = (isset($parseOptions['premium']) && $parseOptions['premium'] === 'true') ? 'true' : 'false'; 
+    $urlOptions['render'] = (isset($parseOptions['render']) && $parseOptions['render'] === 'true') ? 'true' : 'false'; 
+    $urlOptions['keep_headers'] = (isset($parseOptions['keep_headers']) && $parseOptions['keep_headers'] === 'true') ? 'true' : 'false'; 
+    $urlOptions['isZapier'] = (isset($parseOptions['isZapier']) && $parseOptions['isZapier'] === 'true') ? 'true' : 'false'; 
+    $urlOptions['isPabbly'] = (isset($parseOptions['isPabbly']) && $parseOptions['isPabbly'] === 'true') ? 'true' : 'false'; 
+    
     if (isset($parseOptions['session_number']) && $parseOptions['session_number'] !== '') {
       $urlOptions['session_number'] = $parseOptions['session_number'];
     }
     if (isset($parseOptions['country_code']) && $parseOptions['country_code'] !== '') {
       $urlOptions['country_code'] = $parseOptions['country_code'];
-    }
-    if (isset($parseOptions['keep_headers']) && $parseOptions['keep_headers'] === true) {
-      $urlOptions['keep_headers'] = 'true';
     }
     if (isset($parseOptions['device_type']) && $parseOptions['device_type'] !== null) {
       $urlOptions['device_type'] = $parseOptions['device_type'];
@@ -239,12 +237,6 @@ class QuickScraperClass
     }
     if (isset($parseOptions['scrollTimeout'])) {
       $urlOptions['scrollTimeout'] = $parseOptions['scrollTimeout'];
-    }
-    if (isset($parseOptions['isPabbly'])) {
-      $urlOptions['isPabbly'] = $parseOptions['isPabbly'];
-    }
-    if (isset($parseOptions['isZapier'])) {
-      $urlOptions['isZapier'] = $parseOptions['isZapier'];
     }
     if (isset($parseOptions['customSelectors'])) {
       $urlOptions['customSelectors'] = json_encode($parseOptions['customSelectors']);
