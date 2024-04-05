@@ -54,9 +54,9 @@ require_once './vendor/autoload.php';
 $quickScraperClient = new QuickScraper\Main\QuickScraperClass();
 $quickScraperClient->setAccessToken('YOUR_ACCESS_TOKEN');
 $response = $quickScraperClient->getHtml('http://httpbin.org/headers', array(
-    //This field is added to set cookis,authorizarion token etc from request header.
-    "keep_headers" => true,//This value will be true when we want to use header
-    'headers' => array('X-My-Custom-Header'=> 'QS-APP')//Supports values like `'Accept-Encoding': 'gzip,deflate,compress'`
+      //This field is added to set cookis,authorizarion token etc from request header.
+    "isKeepHeaders" => 'true',//This value will be true when we want to use header
+    'customRequestHeaders' => array('X-My-Custom-Header'=> 'QS-APP')//Supports values like `'Accept-Encoding': 'gzip,deflate,compress'`
   )
 );
 print_r(json_decode($response));
