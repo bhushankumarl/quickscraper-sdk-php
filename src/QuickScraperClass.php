@@ -13,7 +13,7 @@ class QuickScraperClass
   private $DEFAULT = array(
     'Client' => 'PHP_CLIENT_LIB',
     'HOST' => '',
-    'Client-Version' => '3.2'
+    'Client-Version' => '3.3'
   );
 
   /**
@@ -47,8 +47,8 @@ class QuickScraperClass
   {
 
     $customHeaders = null;
-    if (isset($parseOptions['headers'])) {
-      $customHeaders = $parseOptions['headers'];
+    if (isset($parseOptions['customRequestHeaders'])) {
+      $customHeaders = $parseOptions['customRequestHeaders'];
     }
     $headers = $this->prepareHeaders($customHeaders, $parseOptions);
     $gotOptions = array(
@@ -57,10 +57,14 @@ class QuickScraperClass
     );
     try {
       $httpClient = new Client();
-      if ((isset($parseOptions['customSelectors']) && sizeof($parseOptions['customSelectors']) > 0) || isset($parseOptions['formData']) || ((isset($parseOptions['dynamicInputs'])) && isset($parseOptions['parserSubscriptionId']))) {
+
+      if ((isset($parseOptions['customSelectors']) && sizeof($parseOptions['customSelectors']) > 0) || isset($parseOptions['customRequestHeaders']) || isset($parseOptions['formData']) || ((isset($parseOptions['dynamicInputs'])) && isset($parseOptions['parserSubscriptionId']))) {
         $bodyData = $this->prepareRequestBodyOrUrl($url, $parseOptions, 'POST');
         $gotOptions['form_params'] = $bodyData;
-        $response = $httpClient->postAsync($this->parseUrl, $gotOptions)->wait();
+        $response = $httpClient->postAsync($this->parseUrl, [
+          'headers' => $gotOptions['headers'],
+          'body' =>  json_encode($bodyData)
+        ])->wait();
         $responseObject = (object) array(
           'data' => $response->getBody()->getContents()
         );
@@ -78,7 +82,6 @@ class QuickScraperClass
       if ($responseError->message && $responseError->statusCode) {
         $statusCode = $responseError->statusCode ? $responseError->statusCode : 530;
         http_response_code($statusCode);
-        // return json_encode($responseError);
         throw new \Exception($responseError->message, $statusCode);
       }
       $statusCode = 530;
@@ -130,13 +133,15 @@ class QuickScraperClass
   {
     $headers = array(
       'Client' => $this->DEFAULT['Client'],
-      'Client-Version' => $this->DEFAULT['Client-Version']
+      'Client-Version' => $this->DEFAULT['Client-Version'],
+      'accept' => 'application/json, text/plain, */*',
+      'content-type' => 'application/json'
     );
     $mergedHeaders = null;
     if ($customHeaders !== null) {
       $mergedHeaders = array_merge($headers, $customHeaders);
     }
-    if ($parseOptions !== null && isset($parseOptions['keep_headers']) && $parseOptions['keep_headers'] === 'true') {
+    if ($parseOptions !== null && isset($parseOptions['isKeepHeaders']) && $parseOptions['isKeepHeaders'] === 'true') {
       return $mergedHeaders;
     }
     return $headers;
@@ -208,18 +213,17 @@ class QuickScraperClass
   {
     $urlOptions = array(
       'access_token' => $this->accessToken,
-      'URL' => $url
+      'url' => $url
     );
 
     $urlOptions['premium'] = (isset($parseOptions['premium']) && $parseOptions['premium'] !== '') ? $parseOptions['premium'] : null;
     $urlOptions['render'] = (isset($parseOptions['render']) && $parseOptions['render'] !== '') ? $parseOptions['render'] : null;
-    $urlOptions['isKeepHeaders'] = (isset($parseOptions['keep_headers']) && $parseOptions['keep_headers'] !== '') ? $parseOptions['keep_headers'] : null;
+    $urlOptions['isKeepHeaders'] = (isset($parseOptions['isKeepHeaders']) && $parseOptions['isKeepHeaders'] !== '') ? $parseOptions['isKeepHeaders'] : null;
     $urlOptions['isZapier'] = (isset($parseOptions['isZapier']) && $parseOptions['isZapier'] !== '') ? $parseOptions['isZapier'] : null;
     $urlOptions['isPabbly'] = (isset($parseOptions['isPabbly']) && $parseOptions['isPabbly'] !== '') ? $parseOptions['isPabbly'] : null;
     $urlOptions['isPabbly'] = (isset($parseOptions['isPabbly']) && $parseOptions['isPabbly'] !== '') ? $parseOptions['isPabbly'] : null;
-    $urlOptions['isMobile'] = (isset($parseOptions['isMobile']) && $parseOptions['isMobile'] !== '') ? $parseOptions['isMobile'] : null;
-    $urlOptions['customRequestHeaders'] = (isset($parseOptions['headers']) && $parseOptions['headers'] !== '' &&
-      isset($parseOptions['keep_headers']) && $parseOptions['keep_headers'] !== '') ? $parseOptions['headers'] : null;
+    $urlOptions['customRequestHeaders'] = (isset($parseOptions['customRequestHeaders']) && $parseOptions['customRequestHeaders'] !== '' &&
+      isset($parseOptions['isKeepHeaders']) && $parseOptions['isKeepHeaders'] !== '') ? $parseOptions['customRequestHeaders'] : null;
 
     if (isset($parseOptions['session_number']) && $parseOptions['session_number'] !== '') {
       $urlOptions['session_number'] = $parseOptions['session_number'];
